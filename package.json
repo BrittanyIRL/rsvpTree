@@ -1,0 +1,19 @@
+{
+  "name": "minimalbride",
+  "version": "1.0.0",
+  "description": "RSVP tracking and family or network tree creator for optimal wedding organization and prep",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/BrittanyIRL/minimalBride.git"
+  },
+  "author": "brittanybrassell",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/BrittanyIRL/minimalBride/issues"
+  },
+  "homepage": "https://github.com/BrittanyIRL/minimalBride#readme"
+}
