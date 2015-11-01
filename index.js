@@ -2,7 +2,7 @@ var express = require("express"); //imports express as an object, make app
 var app = express(); //call express as a function
 var ejsLayouts = require("express-ejs-layouts"); //get layout 
 var bodyParser = require("body-parser");
-//var db = require("./models"); //get database table (called favorite), used for tracking favorite movies
+var db = require("./models"); //get database table (called favorite), used for tracking favorite movies
 //middleware here
 app.use(ejsLayouts); 
 app.use(express.static(__dirname + '/views'));
