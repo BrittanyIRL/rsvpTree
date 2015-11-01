@@ -1,1 +1,33 @@
 body { padding-top: 70px; }
+
+
+/*portal stylings - main page */
+.portalNav {
+	width: 100%;
+	padding-right: 5em;
+}
+
+.portalNav ul{
+	list-style-type: none;
+	margin: 0;
+	padding: 0;
+	text-align: right;
+}
+
+.portalNav ul li {
+	display: inline;
+}
+
+.portalNav ul li a {
+	text-decoration: none;
+}
+
+.portalNav ul li a:hover {
+	text-decoration: none;
+	color: green;
+}
+
+footer {
+	position: absolute;
+	bottom: 0;
+}

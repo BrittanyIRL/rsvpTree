@@ -8,7 +8,6 @@ app.use(ejsLayouts);
 app.use(express.static(__dirname + '/views'));
 app.use(bodyParser({urlencoded: false}));
 app.set("view engine", "ejs");
-
 /* page outline
 views/index.ejs is the landing page
 index.ejs/guest/enter : enter party code
@@ -31,17 +30,20 @@ app.get('/', function(req, res){ //sets root
  	res.render('index');
  });
 
-app.get('/portal/set-up', function(req, res){ //sets root
- 	res.render('portal/set-up');
- });
+// app.get('/portal/set-up', function(req, res){ //sets root
+//  	res.render('portal/set-up');
+//  });
 
-app.get('/portal/settings', function(req, res){
-	res.render('portal/settings'); //add :id once generating
-});
+// app.get('/portal/settings', function(req, res){
+// 	res.render('portal/settings'); //add :id once generating
+// });
 
 
 //controllers
-app.use("/admin", require("./controllers/admin"));
+app.use("/portal", require('./controllers/admin'));
+app.use("/guest", require('./controllers/guest'));
+app.use("/", require('./controllers/site'));
+
 
 
 app.listen(3000);

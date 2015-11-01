@@ -12,9 +12,12 @@ module.exports = {
         type: Sequelize.INTEGER
       },
       email: {
-        type: Sequelize.TEXT
+        type: Sequelize.STRING
       },
-      name: {
+      firstName: {
+        type: Sequelize.STRING
+      },
+      lastName: {
         type: Sequelize.STRING
       },
       party: {
@@ -26,17 +29,26 @@ module.exports = {
       count: {
         type: Sequelize.INTEGER
       },
-      children: {
-        type: Sequelize.INTEGER
+      childName: {
+        type: Sequelize.TEXT
       },
       childAge: {
-        type: Sequelize.INTEGER
+        type: Sequelize.STRING
       },
-      dietaryRestriction: {
+      diet: {
         type: Sequelize.TEXT
       },
-      notes: {
+      note: {
         type: Sequelize.TEXT
+      },
+      plusOneLastName: {
+        type: Sequelize.STRING
+      },
+      plusOneFirstName: {
+        type: Sequelize.STRING
+      },
+      plusOne: {
+        type: Sequelize.BOOLEAN
       },
       createdAt: {
         allowNull: false,

@@ -1,17 +1,17 @@
 'use strict';
 module.exports = {
   up: function(queryInterface, Sequelize) {
-    return queryInterface.createTable('admins', {
+    return queryInterface.createTable('guestsTrees', {
       id: {
         allowNull: false,
         autoIncrement: true,
         primaryKey: true,
         type: Sequelize.INTEGER
       },
-      oauth: {
-        type: Sequelize.TEXT
+      guestId: {
+        type: Sequelize.INTEGER
       },
-      portalCodeMaster: {
+      treeId: {
         type: Sequelize.INTEGER
       },
       createdAt: {
@@ -25,6 +25,6 @@ module.exports = {
     });
   },
   down: function(queryInterface, Sequelize) {
-    return queryInterface.dropTable('admins');
+    return queryInterface.dropTable('guestsTrees');
   }
 };

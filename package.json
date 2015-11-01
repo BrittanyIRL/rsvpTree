@@ -1,5 +1,5 @@
 {
-  "name": "minimalbride",
+  "name": "rsvptree",
   "version": "1.0.0",
   "description": "RSVP tracking and family or network tree creator for optimal wedding organization and prep",
   "main": "index.js",
@@ -15,5 +15,16 @@
   "bugs": {
     "url": "https://github.com/BrittanyIRL/minimalBride/issues"
   },
-  "homepage": "https://github.com/BrittanyIRL/minimalBride#readme"
+  "homepage": "https://github.com/BrittanyIRL/minimalBride#readme",
+  "dependencies": {
+    "body-parser": "^1.14.1",
+    "express": "^4.13.3",
+    "ejs": "^2.3.4",
+    "express-ejs-layouts": "^2.0.0",
+    "pg": "^4.4.3",
+    "pg-hstore": "^2.3.2",
+    "request": "^2.65.0",
+    "sequelize": "^3.13.0"
+  },
+  "devDependencies": {}
 }

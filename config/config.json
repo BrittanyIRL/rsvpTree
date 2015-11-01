@@ -1,8 +1,8 @@
 {
   "development": {
-    "database": "minimalb",
+    "database": "rsvptree",
     "host": "127.0.0.1",
-    "dialect": "postgress"
+    "dialect": "postgres"
   },
   "test": {
     "username": "root",
