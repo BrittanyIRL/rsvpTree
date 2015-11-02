@@ -21,7 +21,7 @@ module.exports = function(sequelize, DataTypes) {
       associate: function(models) {
         // associations can be defined here
         models.setting.hasMany(models.guest)
-        //models.setting.hasMany(models.oauth) -- pending!
+        models.setting.hasMany(models.user)
       }
     }
   });

@@ -1,49 +1,53 @@
 var express = require("express"); //imports express as an object, make app
-var app = express(); //call express as a function
 var ejsLayouts = require("express-ejs-layouts"); //get layout 
 var bodyParser = require("body-parser");
 var db = require("./models"); //get database table (called favorite), used for tracking favorite movies
+var passport = require('passport');
+var LocalStrategy = require('passport-local').Strategy;
+var strategies = require('./config/strategies');
+var session = require('express-session');
+var flash = require('connect-flash');
+var FacebookStrategy = require('passport-facebook').Strategy;
+var app = express(); //call express as a function
 //middleware here
+app.set("view engine", "ejs");
 app.use(ejsLayouts); 
 app.use(express.static(__dirname + '/views'));
 app.use(bodyParser({urlencoded: false}));
-app.set("view engine", "ejs");
-/* page outline
-views/index.ejs is the landing page
-index.ejs/guest/enter : enter party code
-index.ejs/guest/confirm : confirm correct party matches code
-index.ejs/guest/rsvp: yes or no
-index.ejs/guest/confirm : form of guest questions and then send to page
-index.ejs/guest/decline : display message of regret and link to view site anyways
+app.use(flash());
+app.use(session({
+  secret: 'keepitsecretkeepitsafe',
+  resave: false,
+  saveUninitialized: true
+}));
+app.use(passport.initialize());
+app.use(passport.session());
 
-index.ejs/portal/set-up : account set up
-index.ejs/portal/settings: account details managed
-index.ejs/portal/index : account dash
-index.ejs/portal/rsvplist : account master list of invites
-index.ejs/portal/tree : account tree views
+passport.serializeUser(strategies.serializeUser);
+passport.deserializeUser(strategies.deserializeUser);
 
-views/error.ejs - for all 404s and redirects 
-*/
+passport.use(strategies.localStrategy);
+passport.use(strategies.facebookStrategy);
+
+app.use(function(req,res,next){
+  res.locals.currentUser = req.user;
+  res.locals.alerts = req.flash();
+  next();
+});
+
+
 //routes start here
 //render homepage 
-app.get('/', function(req, res){ //sets root
- 	res.render('index');
- });
-
-// app.get('/portal/set-up', function(req, res){ //sets root
-//  	res.render('portal/set-up');
+// app.get('/', function(req, res){ //sets root
+//  	res.render('index');
 //  });
-
-// app.get('/portal/settings', function(req, res){
-// 	res.render('portal/settings'); //add :id once generating
-// });
 
 
 //controllers
+app.use("/", require('./controllers/site'));
 app.use("/portal", require('./controllers/admin'));
 app.use("/guest", require('./controllers/guest'));
-app.use("/", require('./controllers/site'));
-
+app.use("/auth", require('./controllers/auth'));
 
 
 app.listen(3000);
