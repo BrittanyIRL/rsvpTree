@@ -9,7 +9,7 @@ router.use(bodyParser({urlencoded: false}));
 router.get('/:portalCode/site', function(req, res){
 	db.setting.findOrCreate({
 		where: {
-			weddingDate: 011716,
+			weddingDate: 11716,
 			location: 'Seattle',
 			time: '4:00pm',
 			registry: 'http://fakesitehere.com',

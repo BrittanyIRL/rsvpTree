@@ -1,7 +1,7 @@
 var express = require("express");
 var router = express.Router(); //call router like app
 var request = require("request");
-//var db = require("./../models");
+var db = require("./../models");
 var bodyParser = require("body-parser");
 router.use(bodyParser({urlencoded: false}));
 
@@ -29,8 +29,34 @@ router.get('/log-in', function(req, res){
 
 //render settings 
 router.get('/settings', function(req, res){
-	res.render('portal/settings'); //add :id once generating
+	db.setting.findAll().then(function(data){
+		res.render('portal/settings'); //add :id once generating
+	});
 });
+
+router.post('/settings', function(req, res){
+	var newEvent = req.body;
+	db.setting.findOrCreate({
+		where: {
+			weddingDate: newEvent.weddingDate,
+			location: newEvent.location,
+			time: newEvent.time,
+			registry: newEvent.registry,
+			about: newEvent.about,
+			picture: newEvent.picture,
+			phone: newEvent.phone,
+			email: newEvent.email,
+			siteName: newEvent.siteName,
+			greeting: newEvent.greeting,
+			brideFirst: newEvent.brideFirst,
+			brideLast: newEvent.brideLast,
+			groomFirst: newEvent.groomFirst,
+			groomLast: newEvent.groomLast,
+			portalCode: newEvent.portalCode }
+		}).spread(function(setting, created){
+			res.render('portal/index')
+		})
+	});
 //render tree
 router.get('/tree', function(req, res){
 	res.render('portal/tree'); //add :id once generating

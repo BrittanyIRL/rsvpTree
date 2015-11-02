@@ -2,24 +2,32 @@
   <div class="page-header">
     <h1>Welcome, ________ <small>We're stoked for you. Please fill out the following information for us to create your page out of. Don't worry, you can always edit it if you change your mind.</small></h1>
   </div>
-  <form>
+  <form method="POST" action="" role="form">
     <div class="row">
       <div class="col-sm-12 col-md-6">
         <div class="form-group">
-          <label for="nameBride">What is the Bride's Name?</label>
-          <input type="text" class="form-control" id="nameBride" placeholder="Diana">
-          <label for="nameGroom">What is the Groom's Name?</label>
-          <input type="text" class="form-control" id="nameGroom" placeholder="Prince Charles">
+          <div class="row">
+            <div class="col-sm-12 col-md-6">
+              <label for="nameBride">What is the Bride's Name?</label>
+              <input type="text" class="form-control" name="brideFirst" placeholder="Kim">
+              <input type="text" class="form-control" name="brideLast" placeholder="Possible">
+            </div>
+            <div class="col-sm-12 col-md-6">
+              <label for="nameGroom">What is the Groom's Name?</label>
+              <input type="text" class="form-control" name="groomFirst" placeholder="Prince">
+               <input type="text" class="form-control" name="groomLast" placeholder="Charles">
+              </div>
+            </div>
         </div>
       </div> 
       <div class="col-sm-12 col-md-6">
         <div class="form-group">
           <label for="date">When's the wedding?</label>
-          <input type="text" class="form-control" id="date" placeholder="date">
+          <input type="text" class="form-control" name="weddingDate" id="date" placeholder="date">
           <label for="time">What time?</label>
-          <input type="text" class="form-control" id="time" placeholder="6:00">
+          <input type="text" class="form-control" name="time" id="time" placeholder="6:00">
           <label for="location">Where's it at?</label>
-          <input type="text" class="form-control" id="location" placeholder="location">
+          <input type="text" class="form-control" id="location" name="location" placeholder="location">
         </div>
       </div>
     </div>
@@ -32,31 +40,31 @@
             </label>
           </div>
           <label for="date">If so, copy in a valid link to your registry below, or just list stores if it's not online</label>
-          <input type="text" class="form-control" id="registry1" placeholder="Amazon">
-          <input type="text" class="form-control" id="registry2" placeholder="Amazon">
-          <input type="text" class="form-control" id="registry3" placeholder="Amazon">
+          <input type="text" class="form-control" id="registry1" name="registry" placeholder="Amazon">
+          <!-- <input type="text" class="form-control" id="registry2" name="registry" placeholder="Amazon">
+          <input type="text" class="form-control" id="registry3" name="registry" placeholder="Amazon"> -->
         </div>
       </div>
       <div class="col-sm-12 col-md-6">
         <label for="date">How do you want to greet your guests?</label>
-        <input type="text" class="form-control" id="header" placeholder="We're getting married!">
+        <input type="text" class="form-control" name="greeing" id="header" placeholder="We're getting married!">
         <label>Story Time</label>
-        <textarea class="form-control" rows="6">Tell us your story, we'll post it on your page for your guests to gush over.</textarea>
+        <textarea class="form-control" rows="6" name="about">Tell us your story, we'll post it on your page for your guests to gush over.</textarea>
       </div>
     </div>
     <div class="row">
       <div class="col-sm-12 col-md-6">
         <label for="pictureUpload">Include a photo of you two</label>
-        <input type="file" id="pictureUpload">
+        <input type="file" id="pictureUpload" name="picture">
       </div>
       <div class="col-sm-12 col-md-6">
         <label for="contactInfo">What's a good contact for guests if they have questions?</label>
-        <input type="text" class="form-control" id="contactInfo" placeholder="206-867-5309">
+        <input type="text" class="form-control" id="contactInfo" name="phone" placeholder="206-867-5309">
       </div>
     </div>
     <div class="row">
       <div class="col-sm-12">
-       <button type="submit" class="btn btn-default center-block">Submit</button>
+       <button type="submit" value="submit" class="btn btn-default center-block">Submit</button>
       </div>
     </div>
   </form>
