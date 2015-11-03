@@ -1,60 +1,68 @@
 var express = require('express');
 var db = require('./../models');
+var request = require('request');
 var passport = require('passport');
 var router = express.Router();
 
-router.route('/signup')
-  .get(function(req, res) {
-    res.redirect('/auth/signup');
-  })
-  .post(function(req, res) {
-    if (req.body.password != req.body.password2) {
+router.get('/signup', function(req, res){
+    res.render('auth/signup');
+  });
+router.post('/signup', function(req, res){
+    console.log(req.body);
+    var newUser = req.body;
+    if (newUser.password != newUser.password2) {
+      console.log(newUser.password + newUser.password2);
       req.flash('danger', 'Passwords do not match');
-      res.redirect('/auth/signup');
+      res.redirect('signup');
     } else {
-      db.user.findOrCreate({
-        where: {email: req.body.email},
-        defaults: {
-          password: req.body.password,
-          firstName: req.body.firstName,
-          lastName: req.body.lastName
-        }
-      }).spread(function(user, created) {
-        if (created) {
+      console.log('found else');
+      db.user.create({
+          email: newUser.email,
+          firstName: newUser.firstName,
+          lastName: newUser.lastName,
+          password: newUser.password
+      }).then(function(user, created) {
+        // if (created) {
           req.login(user, function(err) {
             if (err) throw err;
-            req.flash('success', 'You are signed up and logged in.')
-            res.redirect('/admin');
-          });
-        } else {
-          req.flash('danger', 'A user with that e-mail address already exists.');
-          res.redirect('/auth/signup');
-        }
-      }).catch(function(err) {
+            req.flash('success', 'You are signed up and logged in.');
+            console.log('signed up and logged in');
+            res.render('portal/index');
+          })
+        // } else {
+        //   req.flash('danger', 'A user with that e-mail address already exists.');
+        //   console.log('user with that email already exists');
+        //   res.redirect('signup');
+        // };
+        .catch(function(err) {
         req.flash('danger','Error');
-        res.redirect('/auth/signup');
+        console.log('error');
+        res.redirect('signup');
       });
-    }
+  })
+  };
+});
+
+router.get('/login', function(req, res) {
+    res.render('auth/login');
   });
 
-router.route('/login')
-  .get(function(req, res) {
-    res.render('auth/login');
-  })
-  .post(function(req, res) {
+router.post('/login', function(req, res) {
     passport.authenticate('local', function(err, user, info) {
+       console.log(user);
       if (user) {
         req.login(user, function(err) {
+          console.log('user recognized');
           if (err) throw err;
           req.flash('success', 'You are now logged in.');
-          res.redirect('portal/index');
+          res.render('portal/index');
         });
       } else {
         req.flash('danger', 'Error');
         res.redirect('auth/login');
       }
-    })(req, res);
   });
+});
 
 router.get('/login/:provider', function(req, res) {
   passport.authenticate(
@@ -63,6 +71,7 @@ router.get('/login/:provider', function(req, res) {
   )(req, res);
 });
 
+//THIS WORKS
 router.get('/callback/:provider', function(req, res) {
   passport.authenticate(req.params.provider, function(err, user, info) {
         console.log('logged in');
@@ -71,11 +80,11 @@ router.get('/callback/:provider', function(req, res) {
       req.login(user, function(err) {
         if (err) throw err;
         req.flash('success', 'You are now logged in with ' + req.params.provider);
-        res.redirect('/portal');
+        res.render('portal/index');
       });
     } else {
       req.flash('danger', 'Error');
-      res.redirect('/auth/login');
+      res.redirect('auth/login');
     }
   })(req, res);
 });
@@ -87,3 +96,5 @@ router.get('/logout', function(req, res) {
 });
 
 module.exports = router;
+
+

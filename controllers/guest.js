@@ -7,8 +7,32 @@ router.use(bodyParser({urlencoded: false}));
 
 
 //render enter
+//guestFirst, guestLast, weddingCode
+//searching for portalCode in setting.js
+// get portalCode
+// post guest name
+
+// router.get('/enter', function(req, res){
+	
+// 		res.render('guest/enter'); //add :id once generating
+
+// 	//find correct wedding code
+// 	//if portalCode matches anyother portal code continue
+// 	//add name being inputed to guest list
+// });
+
 router.get('/enter', function(req, res){
-	res.render('guest/enter'); //add :id once generating
+	var guest = req.body; //form data
+	console.log(guest);
+	db.setting.find({
+		where: {
+			portalCode : guest.weddingCode
+		},
+		include: [ db. guest]
+	}).then(function(guest){
+		console.log(guest)
+		res.render('guest/confirm', { guest : guest })
+	});
 });
 
 //render confirm

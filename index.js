@@ -13,7 +13,7 @@ var app = express(); //call express as a function
 app.set("view engine", "ejs");
 app.use(ejsLayouts); 
 app.use(express.static(__dirname + '/views'));
-app.use(bodyParser({urlencoded: false}));
+app.use(bodyParser.urlencoded({extended: false}));
 app.use(flash());
 app.use(session({
   secret: 'keepitsecretkeepitsafe',
@@ -34,6 +34,9 @@ app.use(function(req,res,next){
   res.locals.alerts = req.flash();
   next();
 });
+
+
+
 
 
 //routes start here

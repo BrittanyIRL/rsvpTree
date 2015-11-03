@@ -29,8 +29,13 @@
 			<!-- Collect the nav links, forms, and other content for toggling -->
 			<div class="collapse navbar-collapse navbar-ex1-collapse">
 				<ul class="nav navbar-nav navbar-right">
-					<li><a href="/portal/set-up">Sign Up</a></li>
-					<li><a href="/portal/log-in">Log In</a></li>
+					<% if (!currentUser) { %>
+					<li><a href="/auth/signup">Sign Up</a></li>
+					<li><a href="/auth/login">Log In</a></li>
+					<% } else { %> 
+					<p class="navbar-text">Signed in as <%= currentUser.firstName %></p>
+					<li><a href="/auth/logout">Logout</a></li>
+					<% } %>
 				</ul>
 			</div><!-- /.navbar-collapse -->
 		</div>

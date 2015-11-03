@@ -17,21 +17,32 @@ router.get('/', function(req, res){
 // 	res.render('index'); //add :id once generating
 // });
 
-//render sign up page for admins
-router.get('/set-up', function(req, res){
-	res.render('portal/set-up'); //add :id once generating
-});
+// //render sign up page for admins
+// router.get('/set-up', function(req, res){
+// 	if (req.user) {
+//     res.render('portal/set-up'); //add :id once generating
+//   } else {
+//     req.flash('danger','You do not have permission to see this page');
+//     res.redirect('/');
+//   }
+
+// });
 
 //render sign in page for admins
-router.get('/log-in', function(req, res){
-	res.render('portal/log-in'); //add :id once generating
-});
+// router.get('/log-in', function(req, res){
+// 	res.render('portal/log-in'); //add :id once generating
+// });
 
 //render settings 
 router.get('/settings', function(req, res){
-	db.setting.findAll().then(function(data){
-		res.render('portal/settings'); //add :id once generating
+	if (req.user) {
+    db.setting.findAll().then(function(data){
+		res.render('portal/settings');
 	});
+  } else {
+    req.flash('danger','You do not have permission to see this page');
+    res.redirect('/');
+  }
 });
 
 router.post('/settings', function(req, res){
