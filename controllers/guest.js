@@ -26,7 +26,7 @@ router.post('/one', function(req, res){
 		},
 		include:[ db.guest ]
 		}).then(function(setting){
-			console.log(setting.get())
+			// console.log(setting.get())
 			res.render('guest/two' + weddingId, { setting : setting });
 		});
 	});
@@ -34,6 +34,8 @@ router.post('/one', function(req, res){
 // Second Page: Is this the right wedding?
 //     — On no redirect to which wedding?
 // //     — On yes - great, who are you?
+
+//store session code
 var rsvpToken = null;
 router.get('/two/', function(req, res){
 	req.session.weddingCode = req.query.weddingCode; // this should be the setting id selected in /one
@@ -76,56 +78,66 @@ router.get('/three/', function(req, res){
  // Third Page: Who are you & can you come?
 // //     — On no, redirect to thanks for RSVPing, hopefully we’ll see you soon.
 // //     — On yes, great! You can make it, please fill out form.
-var newGuestFirst = null;
-var newGuestLast = null;
+
 router.post('/three', function(req, res){
 	var newGuest = req.body;
-	newGuestFirst = req.session.firstName;
-	newGuestLast = req.session.lastName;
-	console.log(rsvpToken);
-
-	db.setting.find({
-		where: {
-			portalCode: rsvpToken //this is showing as null
-		},
-		include:[ db.guest ]
-	}).then(function(guest){
+	console.log("POST THREE" + rsvpToken );
+	// db.setting.find({
+	// 	where: {
+	// 		portalCode: rsvpToken //this is showing as null
+	// 	},
+	// 	include:[ db.guest ]
+	// }).then(function(guest){
 		db.guest.create({
 			firstName: req.body.firstName,
 			lastName: req.body.lastName,
 			rsvp: req.body.rsvp,
-			portalCode: rsvpToken
-		}).catch(function(error){
-			res.render('error');
-		}).then(function(guest){
-			res.render('guest/four', { guest : guest })
-		});
-		
+			portalCode: rsvpToken,
+			email: req.body.email,
+			diet: req.body.diet,
+			party: req.body.party,
+			childAge: req.body.childAge,
+			childName: req.body.childName,
+			count: req.body.count,
+			plusOneLastName: req.body.plusOneLastName,
+			plusOneFirstName: req.body.plusOneFirstName
+		//}).
+		//catch(function(error){
+		// 	res.render('error');
+		 }).then(function(guest){
+			res.render('guest/five')
+		});	
 	});
-});
+// });
+
+
 
 router.get('/four', function(req, res){
-	console.log("WE ARE TRACKING GUEST NAME NOW" + newGuestFirst);
-	var newGuest = req.body;
-	db.guest.find({
-		where: {
-			firstName: newGuestFirst,
-			lastName: newGuestLast
-		}
-	}).then(function(guest){
-		guest.diet = newGuest.diet;
-		guest.party = newGuest.party;
-		guest.childAge = newGuest.childAge;
-		guest.childName = newGuest.childName;
-		guest.count = newGuest.count;
-		guest.plusOneLastName = newGuest.plusOneLastName;
-		guest.plusOneFirstName = newGuest.plusOneFirstName;
-		guest.email = newGuest.email;
-		guest.save().then(function(){
-			res.render('guest/four', { guest : guest })
-		});
+	// console.log("WE ARE TRACKING GUEST NAME NOW" + newGuestFirst);
+	// var newGuest = req.body;
+	// db.guest.find({
+	// 	where: {
+	// 		portalCode: rsvpToken,
+	// 		email: newGuestEmail
+	// 	}
+	// }).then(function(guest){
+	// 		guest.updateAttributes({
+	// 		diet: newGuest.diet,
+	// 		party: newGuest.party,
+	// 		childAge: newGuest.childAge,
+	// 		childName: newGuest.childName,
+	// 		count: newGuest.count,
+	// 		plusOneLastName: newGuest.plusOneLastName,
+	// 		plusOneFirstName: newGuest.plusOneFirstName,
+	// 		email: newGuest.email,
+	// 	}).then(function(){
+	res.render('guest/four')
+
+		// });
+		// });
 	});
-});
+
+//current problem is that rsvp name isn't carrying on to the next screen for full rsvp 
 
 router.post('/four', function(req, res){
 

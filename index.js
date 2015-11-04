@@ -16,6 +16,7 @@ app.use(express.static(__dirname + '/views'));
 app.use(bodyParser.urlencoded({extended: false}));
 app.use(flash());
 app.use(session({
+	//cookieName: 'session', //added in hopes of guest rsvp working
   secret: 'keepitsecretkeepitsafe',
   resave: false,
   saveUninitialized: true

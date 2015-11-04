@@ -8,21 +8,45 @@
       <input type="text" class="form-control" name="firstName" id="firstName" placeholder="first name">
       <label for="lastName">last name</label>
       <input type="text" class="form-control" name="lastName" id="lastName" placeholder="last name">
+      <label for="guestContact">What is a good email for you just incase we need to follow up?</label>
+      <input type="text" class="form-control" id="guestContact" name="email" placeholder="example@gmail.com">
       <input type="hidden" name="portalCode" value="<%= setting.portalCode %>">
       <h2>Will you be able to attend?</h2>
-      <div class="radio">
-          <label>
-            <input type="radio" name="rsvp" id="optionsRadios1" value="false" checked>
-            Regretably, no.
-          </label>
+      <!-- <button type="submit" class="btn btn-default">
+        <input type="hidden" value="false" name="rsvp">
+        Nope
+      </button> -->
+      <button class="btn btn-primary" type="button" data-toggle="collapse" data-target="#rsvpMore" aria-expanded="false" aria-controls="rsvpMore">
+          <input type="hidden" value="true" name="rsvp">
+          I'll be there!
+          </button>
+  </div> <!-- end base RSVP, show or move forward based on radio button -->
+  <div class="form-group collapse" id="rsvpMore">
+      <h1>We're so thrilled!</h1>
+      <p>If you could tell us a bit more about your plans, it will help our wedding go off even better. Thanks! </p>
+        <div class="row">
+          <div class="col-sm-12 col-md-6">
+            <div class="form-group"> 
+                <label for="plusOne">If you're bringing someone with you, what's their name?</label>
+                <input type="text" class="form-control" id="plusOneFirst" name="plusOneFirstName" placeholder="Ted">
+                <input type="text" class="form-control" id="plusOneLast" name="plusOneLastName" placeholder="Nuget">
+                <label for="plusOne">How many people are in your party?</label>
+                <input type="integer" class="form-control" id="plusOne" name="count" placeholder="2">
+                <label for="plusKids">Speaking of plus ones, are you bringing any children?</label>
+                <input type="text" class="form-control" id="plusKids" name="childName" placeholder="Joe">
+                <label for="plusKidsAge">How old are they?</label>
+                <input type="text" class="form-control" id="plusKidsAge" name="childAge" placeholder="12">
+            </div>
+          </div> 
+          <div class="col-sm-12 col-md-6">
+            <div class="form-group">
+              <label for="side">Do you know the bride or the groom?</label>
+              <input type="text" class="form-control" id="side" name="party" placeholder="groom">
+              <label for="diet">Any Dietary Restrictions we should know about?</label>
+              <input type="text" class="form-control" id="diet" name="diet" placeholder="gluten">
+            </div>
+          </div>
         </div>
-        <div class="radio">
-          <label>
-            <input type="radio" name="rsvp" id="true" value="true">
-           I'll be there
-          </label>
-        </div>
-
-  </div>
-<input type="submit" value="confirm">
-</form>
+      </div> <!--end hidden -->
+    <input type="submit" value="confirm">
+    </form>
