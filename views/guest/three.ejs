@@ -11,15 +11,42 @@
       <label for="guestContact">What is a good email for you just incase we need to follow up?</label>
       <input type="text" class="form-control" id="guestContact" name="email" placeholder="example@gmail.com">
       <input type="hidden" name="portalCode" value="<%= setting.portalCode %>">
+    </div>
+    <div class="form-group">
       <h2>Will you be able to attend?</h2>
-      <!-- <button type="submit" class="btn btn-default">
+      
+      <div class="radio">
+        <label>
+          <input type="radio" name="rsvp" id="rsvp2" value="false" data-toggle="collapse" data-target="#rsvpMore" aria-expanded="false" aria-controls="rsvpMore" checked>
+          <input type="hidden" name="plusOneFirstName" value="null">
+          <input type="hidden" name="plusOneLastName" value="null">
+          <input type="hidden" name="count" value="0">
+          <input type="hidden" name="childName" value="null">
+          <input type="hidden" name="childAge" value="null">
+          <input type="hidden" name="diet" value="null">
+          <input type="hidden" name="note" value="null">
+          <input type="hidden" name="plusOne" value="null">
+          Nope, #sorrynotsorry
+        </label>
+      </div>
+      <div class="radio">
+        <label>
+          <input type="radio" name="rsvp" id="rsvp1" value="true" data-toggle="collapse" data-target="#rsvpMore" aria-expanded="false" aria-controls="rsvpMore">
+          Yes I will be there
+        </label>
+      </div>
+     <!--  <button type="submit" class="btn btn-default">
         <input type="hidden" value="false" name="rsvp">
-        Nope
+        <a href="/site">Nope</a>
       </button> -->
-      <button class="btn btn-primary" type="button" data-toggle="collapse" data-target="#rsvpMore" aria-expanded="false" aria-controls="rsvpMore">
-          <input type="hidden" value="true" name="rsvp">
+      <!-- <button type="submit" value="submit" class="btn btn-default center-block">
+      <input type="hidden" name="rsvp" value="false">Decline</button> -->
+     <!--  <button type="submit" class="btn btn-default" value="false" name="rsvp">Decline</button> -->
+      <!-- <input type="submit" value="confirm"> -->
+      <!-- <button class="btn btn-primary" type="button" data-toggle="collapse" data-target="#rsvpMore" aria-expanded="false" aria-controls="rsvpMore">
+        <input type="hidden" value="true" name="rsvp">
           I'll be there!
-          </button>
+      </button> -->
   </div> <!-- end base RSVP, show or move forward based on radio button -->
   <div class="form-group collapse" id="rsvpMore">
       <h1>We're so thrilled!</h1>
@@ -48,5 +75,5 @@
           </div>
         </div>
       </div> <!--end hidden -->
-    <input type="submit" value="confirm">
+  <input type="submit" value="confirm">
     </form>
