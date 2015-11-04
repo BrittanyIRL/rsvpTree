@@ -14,7 +14,8 @@ module.exports = function(sequelize, DataTypes) {
     note: DataTypes.TEXT,
     plusOneLastName: DataTypes.STRING,
     plusOneFirstName: DataTypes.STRING,
-    plusOne: DataTypes.BOOLEAN
+    plusOne: DataTypes.BOOLEAN,
+    settingId: DataTypes.INTEGER
   }, {
     classMethods: {
       associate: function(models) {

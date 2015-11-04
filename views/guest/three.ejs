@@ -4,10 +4,11 @@
   <legend>RSVP Info</legend>
 
   <div class="form-group">
-      <label for="guestFirst">first name</label>
-      <input type="text" class="form-control" name="guestFirst" id="guestFirst" placeholder="first name">
-      <label for="guestLast">last name</label>
-      <input type="text" class="form-control" name="guestLast" id="guestLast" placeholder="last name">
+      <label for="firstName">first name</label>
+      <input type="text" class="form-control" name="firstName" id="firstName" placeholder="first name">
+      <label for="lastName">last name</label>
+      <input type="text" class="form-control" name="lastName" id="lastName" placeholder="last name">
+      <input type="hidden" name="portalCode" value="<%= setting.portalCode %>">
       <h2>Will you be able to attend?</h2>
       <div class="radio">
           <label>
@@ -17,11 +18,11 @@
         </div>
         <div class="radio">
           <label>
-            <input type="radio" name="rsvp" id="true" value="option2">
+            <input type="radio" name="rsvp" id="true" value="true">
            I'll be there
           </label>
         </div>
 
   </div>
-<button type="submit" class="btn btn-primary">Continue</button>
+<input type="submit" value="confirm">
 </form>

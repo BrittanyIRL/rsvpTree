@@ -12,6 +12,11 @@ module.exports = {
     queryInterface.addColumn(
         'users',
         'settingId',
+        Sequelize.INTEGER),
+
+  queryInterface.addColumn(
+        'guests',
+        'settingId',
         Sequelize.INTEGER)
   },
 
