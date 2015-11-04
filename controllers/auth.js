@@ -75,6 +75,7 @@ router.get('/login/:provider', function(req, res) {
 router.get('/callback/:provider', function(req, res) {
   passport.authenticate(req.params.provider, function(err, user, info) {
         console.log('logged in');
+        console.log(info);
     if (err) throw err;
     if (user) {
       req.login(user, function(err) {
@@ -84,7 +85,7 @@ router.get('/callback/:provider', function(req, res) {
       });
     } else {
       req.flash('danger', 'Error');
-      res.redirect('auth/login');
+      res.redirect('/auth/login');
     }
   })(req, res);
 });

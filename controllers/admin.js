@@ -7,42 +7,29 @@ router.use(bodyParser({urlencoded: false}));
 
 
 router.get('/', function(req, res){
-	//db.favorite.findAll().then(function(data){
-	res.render('portal/index'); //submit data to post /favorites
-	//});
-});
-
-//render portal home
-// router.get('/index', function(req, res){
-// 	res.render('index'); //add :id once generating
-// });
-
-//render sign up page for admins
-// router.get('/set-up', function(req, res){
-// 	if (req.user) {
-//     res.render('portal/set-up'); //add :id once generating
-//   } else {
-//     req.flash('danger','You do not have permission to see this page');
-//     res.redirect('/');
-//   }
-
-// });
-
-//render sign in page for admins
-// router.get('/log-in', function(req, res){
-// 	res.render('portal/log-in'); //add :id once generating
-// });
-
-//render settings 
-router.get('/settings', function(req, res){
+	var id = req.params.id;
 	if (req.user) {
     db.setting.findAll().then(function(data){
-		res.render('portal/settings');
+    	console.log("INDEX ID INDEX ID INDEX ID" + id);
+		res.render('portal/index');
 	});
   } else {
     req.flash('danger','You do not have permission to see this page');
     res.redirect('/');
   }
+});
+
+//render settings 
+router.get('/settings', function(req, res){
+	var id = req.params.id;
+	db.setting.findAll().then(function(data){
+		if (req.user) {
+			res.render('portal/settings');
+  		} else {
+    		req.flash('danger','You do not have permission to see this page');
+    		res.redirect('/');
+  		}
+  	});
 });
 
 router.post('/settings', function(req, res){
@@ -65,31 +52,49 @@ router.post('/settings', function(req, res){
 			groomLast: newEvent.groomLast,
 			portalCode: newEvent.portalCode }
 		}).spread(function(setting, created){
-			res.render('portal/index')
-		})
+			db.user.findById(req.user.id).then(function(data){
+				data.settingId = setting.id
+				data.save().then(function(data){
+					res.render('portal/index')
+				});
+			});
+		});
 	});
 //render tree
 router.get('/tree', function(req, res){
-	if (req.user) {
-    db.setting.findAll().then(function(data){
-		res.render('portal/tree'); //add :id once generating
-	});
-  } else {
-    req.flash('danger','You do not have permission to see this page');
-    res.redirect('/auth/login');
-  }
+	db.setting.findAll().then(function(data){
+		if (req.user) {
+			res.render('portal/tree');
+  		} else {
+    		req.flash('danger','You do not have permission to see this page');
+    		res.redirect('/');
+  		};
+  	});
 });
+
 
 //render rsvps
 router.get('/rsvplist', function(req, res){
-	if (req.user) {
-    db.setting.findAll().then(function(data){
-		res.render('portal/rsvplist'); //add :id once generating
+	db.setting.findAll().then(function(data){
+		if (req.user) {
+			res.render('portal/rsvplist'); //add :id once generating
+	  	} else {
+	    req.flash('danger','You do not have permission to see this page');
+	    res.redirect('/auth/login');
+	  };
 	});
-  } else {
-    req.flash('danger','You do not have permission to see this page');
-    res.redirect('/auth/login');
-  }
+});
+
+router.get('/site', function(req, res){
+	var id = req.params.id;
+	db.setting.findAll().then(function(data){
+		if (req.user) {
+			res.render('portal/site');
+  		} else {
+    		req.flash('danger','You do not have permission to see this page');
+    		res.redirect('/');
+  		}
+  	});
 });
 
 
