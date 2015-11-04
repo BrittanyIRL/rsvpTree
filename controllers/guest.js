@@ -5,56 +5,100 @@ var db = require("./../models");
 var bodyParser = require("body-parser");
 router.use(bodyParser({urlencoded: false}));
 
+// First Page: Hi what wedding would you like to RSVP to?
+//     — Lookup wedding & display confirmation page.
 
-//render enter
-//guestFirst, guestLast, weddingCode
-//searching for portalCode in setting.js
-// get portalCode
-// post guest name
+//load setting model info to be looked up on button submit
+router.get('/one', function(req, res){
+	db.setting.findAll().then(function(data){
+		res.render('guest/one')
+	})
+});
 
-// router.get('/enter', function(req, res){
-	
-// 		res.render('guest/enter'); //add :id once generating
-
-// 	//find correct wedding code
-// 	//if portalCode matches anyother portal code continue
-// 	//add name being inputed to guest list
-// });
-
-router.get('/enter', function(req, res){
-	var guest = req.body; //form data
-	console.log(guest);
+router.post('/one', function(req, res){
+	var id = req.params.id; //find a way to get this to equate the right setting table 
+	var weddingId = req.body.weddingCode;
+	//search and find matching id to proceed.
+	//carry this over 
 	db.setting.find({
 		where: {
-			portalCode : guest.weddingCode
+			portalCode: weddingId
 		},
-		include: [ db. guest]
+		include:[ db.guest ]
+		}).then(function(setting){
+			console.log(setting.get())
+			res.render('guest/two' + weddingId);
+		});
+	});
+
+// Second Page: Is this the right wedding?
+//     — On no redirect to which wedding?
+// //     — On yes - great, who are you?
+router.get('/two/', function(req, res){
+	req.session.weddingCode = req.query.weddingCode; // this should be the setting id selected in /one
+	//load setting db to confirm right party 
+	db.setting.find({
+	where: {
+		portalCode: req.session.weddingCode
+	 	}
+	 }).then(function(setting){
+		res.render('guest/two', { setting : setting })
+	})
+})
+
+router.post('/two', function(req, res){
+	db.setting.find({
+		where: {
+			portalCode: req.session.weddingCode
+		},
+		include: [ db.guest ]
 	}).then(function(guest){
-		console.log(guest)
-		res.render('guest/confirm', { guest : guest })
+		//confirm that this is the right page
+		//if yes, proceed
+		//if no then back to one
+		res.render('guest/three', { setting : setting, guest : guest })
+	});
+});	
+
+router.get('/three', function(req, res){
+	db.guest.find({
+	where: {
+		portalCode: req.session.weddingCode
+	}
+}).then(function(guest){
+	res.render('guest/three', { guest : guest })
+});
+});
+
+router.post('/three', function(req, res){
+	db.guest.findOrCreate(
+	{
+		where: {
+			portalCode: req.session.weddingCode,
+			firstName: guestFirst,
+			lastName: guestLast
+		}
+	}).spread(function(rsvp, created){
+		newRsvp.addGuest(rsvp).then(function(){
+			res.render('guest/four', { rsvp : rsvp })
+		})
 	});
 });
+// //at this point, the portalCode will have been stored so we only need guest db
+// // Third Page: Who are you & can you come?
+// //     — On no, redirect to thanks for RSVPing, hopefully we’ll see you soon.
+// //     — On yes, great! You can make it, please fill out form.
 
-//render confirm
-router.get('/confirm', function(req, res){
-	res.render('guest/confirm'); //add :id once generating
-});
+// Fourth Page: Form to fill out with guest details.
 
-//renter rsvp
-router.get('/rsvp', function(req, res){
-	res.render('guest/rsvp'); //add :id once generating
-});
-//render decline
-router.get('/decline', function(req, res){
-	res.render('guest/decline'); //add :id once generating
-});
 
-//render accept
-router.get('/accept', function(req, res){
-	res.render('guest/accept'); //add :id once generating
-});
+// Fifth Page: Awesome! We’ll see you on the Xth. Displays details.
+
 
 
 
 
 module.exports = router;  // tell node what to export
+
+
+

@@ -7,6 +7,7 @@ module.exports = function(sequelize, DataTypes) {
       associate: function(models) {
         // associations can be defined here
         models.tree.belongsToMany(models.guest, {through: "guestsTrees"})
+        models.tree.belongsTo(models.setting)
       }
     }
   });

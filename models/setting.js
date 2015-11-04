@@ -22,6 +22,7 @@ module.exports = function(sequelize, DataTypes) {
         // associations can be defined here
         models.setting.hasMany(models.guest)
         models.setting.hasMany(models.user)
+        models.setting.hasMany(models.tree)
       }
     }
   });
