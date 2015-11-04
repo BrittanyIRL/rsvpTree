@@ -1,0 +1,27 @@
+<div class="container">
+	<div class="row">
+	<h1>site page rendering</h1>
+		<div class="col-sm-12">
+			<div class="page-header">
+				<h1><%= setting.brideFirst %> &amp; <%= setting.groomFirst %> are getting married!</h1>
+			</div>
+		</div>
+	</div>
+	<div class="row">
+		<div class="col-sm-12 col-md-5">
+			<h2><img href="<% setting.picture %>"></h2>
+		</div>
+		<div class="col-sm-12 col-md-7">
+			<h2><%= setting.greeting %></h2>
+			<p><%= setting.about %></p>
+			<h3>The (not so) fine print</h3>
+			<ul>
+				<li>Date: <%= setting.weddingDate %> </li>
+				<li>Time: <%= setting.time %> </li>
+				<li>Location: <%= setting.location %></li>
+			</ul>
+			<p>We are registered at: <a href="<% setting.registry %>"><%= setting.registry %></a></p>
+			<p>Just in case you need to get a hold of us: <%= setting.email %> or <%= setting.phone %></p>
+		</div>
+	</div>
+</div>

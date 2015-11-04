@@ -1,31 +1,6 @@
-<div class="container">
-	<h1>We're so thrilled!</h1>
-	<p>If you could tell us a bit more about your plans, it will help our wedding go off even better. Thanks! </p>
-	<form>
-    <div class="row">
-      <div class="col-sm-12 col-md-6">
-        <div class="form-group">
-        	  
-          	<label for="plusOne">If you're bringing someone with you, what's their name?</label>
-            <input type="text" class="form-control" id="plusOneFirst" name="plusOneFirstName" placeholder="Ted">
-            <input type="text" class="form-control" id="plusOneLast" name="plusOneLastName" placeholder="Nuget">
-            <label for="plusOne">How many people are in your party?</label>
-          	<input type="text" class="form-control" id="plusOne" name="count" placeholder="2">
-          	<label for="plusKids">Speaking of plus ones, are you bringing any children?</label>
-          	<input type="text" class="form-control" id="plusKids" name="childName" placeholder="Joe">
-          	<label for="plusKidsAge">How old are they?</label>
-          	<input type="text" class="form-control" id="plusKidsAge" name="childAge" placeholder="12">
-        </div>
-      </div> 
-      <div class="col-sm-12 col-md-6">
-        <div class="form-group">
-          <label for="side">Do you know the bride or the groom?</label>
-          <input type="text" class="form-control" id="side" name="party" placeholder="groom">
-          <label for="diet">Any Dietary Restrictions we should know about?</label>
-          <input type="text" class="form-control" id="diet" name="diet" placeholder="gluten">
-        </div>
-        
-        <input type="submit" value="confirm">
-      </div>
-    </div>
-</div>
+<h1>Sounds great! </h1> 
+<h2>We'll let the <%= setting.brideFirst %> and <%= setting.groomFirst %> know</h2>
+<p><%= guest.firstName %></p>
+<p><%= guest.lastName %></p>
+<p>DISPLAY INPUTTED FORM DATA HERE</p>
+<button type="button" class="btn btn-default"><a href="/guest/info">button</a></button>

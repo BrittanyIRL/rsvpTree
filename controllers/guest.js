@@ -81,80 +81,74 @@ router.get('/three/', function(req, res){
 
 router.post('/three', function(req, res){
 	var newGuest = req.body;
-	console.log("POST THREE" + rsvpToken );
-	// db.setting.find({
-	// 	where: {
-	// 		portalCode: rsvpToken //this is showing as null
-	// 	},
-	// 	include:[ db.guest ]
-	// }).then(function(guest){
+	// console.log("POST THREE" + rsvpToken );
+	db.setting.find({
+		where: {
+			portalCode: rsvpToken
+		},
+		include: [ db.guest ]
+	}).then(function(setting){
 		db.guest.create({
-			firstName: req.body.firstName,
-			lastName: req.body.lastName,
-			rsvp: req.body.rsvp,
+			firstName: (req.body.firstName ? req.body.firstName : null),
+			lastName: (req.body.lastName ? req.body.lastName : null),
+			rsvp: (req.body.rsvp ? req.body.rsvp : false),
 			portalCode: rsvpToken,
-			email: req.body.email,
-			diet: req.body.diet,
-			party: req.body.party,
-			childAge: req.body.childAge,
-			childName: req.body.childName,
-			count: req.body.count,
-			plusOneLastName: req.body.plusOneLastName,
-			plusOneFirstName: req.body.plusOneFirstName
-		//}).
-		//catch(function(error){
-		// 	res.render('error');
+			email: (req.body.email ? req.body.email : null),
+			diet: (req.body.diet ? req.body.diet : null),
+			party: (req.body.party ? req.body.diet : null),
+			childAge: (req.body.childAge ? req.body.childAge : null),
+			childName: (req.body.childName ? req.body.childName : null),
+			count: (req.body.count ? req.body.count : 0 ),
+			plusOneLastName: (req.body.plusOneLastName ? req.body.plusOneLastName : null),
+			plusOneFirstName: (req.body.plusOneFirstName ? req.body.plusOneFirstName : null)
 		 }).then(function(guest){
-			res.render('guest/five')
+			res.render('guest/four', { setting : setting, guest : guest })
 		});	
-	});
-// });
+	});		
+	})
 
-
-
-router.get('/four', function(req, res){
-	// console.log("WE ARE TRACKING GUEST NAME NOW" + newGuestFirst);
-	// var newGuest = req.body;
-	// db.guest.find({
-	// 	where: {
-	// 		portalCode: rsvpToken,
-	// 		email: newGuestEmail
-	// 	}
-	// }).then(function(guest){
-	// 		guest.updateAttributes({
-	// 		diet: newGuest.diet,
-	// 		party: newGuest.party,
-	// 		childAge: newGuest.childAge,
-	// 		childName: newGuest.childName,
-	// 		count: newGuest.count,
-	// 		plusOneLastName: newGuest.plusOneLastName,
-	// 		plusOneFirstName: newGuest.plusOneFirstName,
-	// 		email: newGuest.email,
-	// 	}).then(function(){
-	res.render('guest/four')
-
-		// });
-		// });
-	});
-
-//current problem is that rsvp name isn't carrying on to the next screen for full rsvp 
-
-router.post('/four', function(req, res){
-
-});
 // //at this point, the portalCode will have been stored so we only need guest db
 // // Third Page: Who are you & can you come?
 // //     — On no, redirect to thanks for RSVPing, hopefully we’ll see you soon.
 // //     — On yes, great! You can make it, please fill out form.
 
-// Fourth Page: Form to fill out with guest details.
-
-
 // Fifth Page: Awesome! We’ll see you on the Xth. Displays details.
 
+router.get('/four', function(req, res){
+	console.log("THIS IS ROUTE POST FOUR HERE I AM NOTICE ME " + rsvpToken);
+	db.setting.find({
+	where: {
+		portalCode: rsvpToken
+	},
+	include:[ db.guest ]
+	}).then(function(setting){
+		res.render('guest/four', { setting : setting, guest : guest })
+	});
+});
 
+router.post('/four', function(req, res){
+	db.setting.find({
+		where: {
+			portalCode: rsvpToken
+		},
+		include:[ db.guest ]
+	}).then(function(setting){
+		res.render('guest/info', {setting : setting, guest : guest })
+	});
+});
 
-
+//this is the viewable page for guests 
+router.get('/info', function(req, res){
+	db.setting.find({
+		where: {
+			portalCode: req.session.weddingCode
+		},
+		include: [ db.guest ]
+	}).then(function(setting){
+		console.log("CONSOLE LOG AT END HERE I AM FIND ME WITH THE ALL CAPS" + req.session.weddingCode)
+		res.render('guest/info', { setting : setting })
+	});
+});
 
 module.exports = router;  // tell node what to export
 

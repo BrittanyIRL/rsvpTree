@@ -17,7 +17,7 @@ router.get('/', function(req, res){
 // 	res.render('index'); //add :id once generating
 // });
 
-// //render sign up page for admins
+//render sign up page for admins
 // router.get('/set-up', function(req, res){
 // 	if (req.user) {
 //     res.render('portal/set-up'); //add :id once generating
@@ -70,12 +70,26 @@ router.post('/settings', function(req, res){
 	});
 //render tree
 router.get('/tree', function(req, res){
-	res.render('portal/tree'); //add :id once generating
+	if (req.user) {
+    db.setting.findAll().then(function(data){
+		res.render('portal/tree'); //add :id once generating
+	});
+  } else {
+    req.flash('danger','You do not have permission to see this page');
+    res.redirect('/auth/login');
+  }
 });
 
 //render rsvps
 router.get('/rsvplist', function(req, res){
-	res.render('portal/rsvplist'); //add :id once generating
+	if (req.user) {
+    db.setting.findAll().then(function(data){
+		res.render('portal/rsvplist'); //add :id once generating
+	});
+  } else {
+    req.flash('danger','You do not have permission to see this page');
+    res.redirect('/auth/login');
+  }
 });
 
 
