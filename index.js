@@ -54,6 +54,6 @@ app.use("/guest", require('./controllers/guest'));
 app.use("/auth", require('./controllers/auth'));
 
 
-app.listen(3000);
+app.listen(process.env.PORT || 3000)
 
 console.log("This is port 3000");
