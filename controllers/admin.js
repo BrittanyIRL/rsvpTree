@@ -114,12 +114,32 @@ router.get('/rsvplist', function(req, res){ //DO NOT CHANGE THIS
 					id: req.user.settingId
 				}
 			}).then(function(setting){
-				db.guest.find({
+				db.guest.findAll({
 					where: {
 						portalCode: setting.portalCode
 					}
-				}).then(function(guest){
-					res.render('portal/rsvplist', { user : user, setting : setting, guest : guest })
+				}).then(function(guests){
+					console.log(guests);
+					var rsvpCount = 0;
+					guests.forEach(function(guest){
+						if(guest.rsvp){
+							rsvpCount ++;
+						}
+					});
+					var childCount = 0;
+					guests.forEach(function(guest){
+						if(guest.childName != null){
+							childCount ++;
+						}
+					});
+					var declineCount = 0;
+					guests.forEach(function(guest){
+						if(guest.rsvp === false){
+							declineCount ++;
+						}
+					})
+					console.log(declineCount);
+					res.render('portal/rsvplist', { user : user, setting : setting, guests : guests, rsvpCount : rsvpCount, childCount : childCount, declineCount : declineCount })
 				})
 			})
 		});

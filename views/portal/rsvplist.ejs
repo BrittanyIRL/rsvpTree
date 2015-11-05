@@ -11,19 +11,19 @@
 	<div class="row">
 		<div class="col-sm-12 col-md-8">
 			<div class="page-header">
-	  		<h1>RSVPs<small> : see who has rsvp'd here, feel free to sort or adjust your connections so that your family and network trees look right</small></h1>
-	</div>
+	  			<h1>RSVPs<small> : see who has rsvp'd here, feel free to sort or adjust your connections so that your family and network trees look right</small></h1>
+			</div>
 		</div>
 	</div>
 	<div class="row">
 		<div class="col-sm-12 col-md-9">
-			<!-- convert thse to be within th -->
-			<button type="button" class="btn btn-default">Last Name: A - Z</button>
+			<!-- convert thse to be within th 
+			<button type="button" class="btn btn-default" id="alphaSort">Last Name: A - Z</button>
 			<button type="button" class="btn btn-default">Last Name: Z - A</button>
 			<button type="button" class="btn btn-default">Date RSVP'd</button>
 			<button type="button" class="btn btn-default">Attending first</button>
-			<button type="button" class="btn btn-default">Declined first</button>
-			<table class="table table-hover">	   
+			<button type="button" class="btn btn-default">Declined first</button> -->
+			<table id="rsvpTable" class="table table-hover tablesorter">	   
 				<thead>
 					<tr>
 						<th>#</th>
@@ -38,7 +38,7 @@
 					</tr>
 				</thead>
 				<tbody>
-				<% guest.forEach(function(guest){ %>
+				<% guests.forEach(function(guest){ %>
 					<tr>
 						<td><%= guest.id %></td>
 						<td><%= guest.firstName %> </td>
@@ -50,19 +50,28 @@
 						<td><%= guest.diet %></td>
 						<td><button type="button" class="btn btn-default">Add To Tree</button></td>
 					</tr>
-				<% }) %>
+				<% }); %>
 				</tbody>
 			</table>
 		</div>
 		<div class="col-sm-12 col-md-3">
-			<ul class="list-group">
-			  <li class="list-group-item">Total Accepted: DB DATA</li>
-			  <li class="list-group-item">Total Attending: DB DATA</li>
-			  <li class="list-group-item">Total Children: DB DATA</li>
-			  <li class="list-group-item">Total Declined: DB DATA</li>
-			  <li class="list-group-item">Other Data</li>
-			  <li class="list-group-item">Other Data</li>
+			<h2>RSVP Stats</h2>
+			<ul class="list-group rsvpStats">
+			  <li class="list-group-item">Total Responses: 
+			  		<%= guests.length %>
+			  		</li>
+			  <li class="list-group-item">Total Attending: 
+			  <% if (rsvpCount) { %>
+			  	<%= rsvpCount %> 
+			  <% } %>
+			  </li>
+			  <li class="list-group-item">Total Children:
+			  <%= childCount %> 
+			  </li>
+			  <li class="list-group-item">Total Declined:
+			  <%= declineCount %> </li>
 			</ul>
+			<button type="button" class="btn submitButton">Add A Guest</button>
 		</div>
 	</div>
 

@@ -8,6 +8,9 @@ a:hover {
 
 }
 
+ul {
+	list-style-type: none;
+}
 
 /*portal stylings - main page */
 .portalNav {
@@ -102,4 +105,31 @@ footer {
 	background-color: rgba(242,235,199,0.6);
 	font-size: 1.5em;
 	font-weight: 600;
+}
+
+.settingButton {
+	margin: 2em auto;
+}
+
+.portalNav a {
+	color: #348899;
+	margin: auto .2em;
+	font-size: 1em;
+}
+
+.portalNav a:hover {
+	color: #343642
+}
+
+.rsvpStats {
+	background: transparent;
+}
+
+/*end site */
+
+.finePrint {
+	border-top: 3px solid #343642;
+	width:75%;
+	margin-top: 1.6em;
+	padding: .5em 1em 2em 1em;
 }
