@@ -1,16 +1,25 @@
-<h1>Login</h1>
+<div class="container">
+	<div class="row">
+		<div class="col-sm-12 col-md-6 col-md-offset-3">
+			<div class="rsvpContainer">
+				<h1>Login</h1>
+				<div class="buttonCenter">
+					<a href="/auth/login/facebook" class="socialLogin">Login with Facebook</a>
+				</div>
 
-<a href="/auth/login/facebook" class="btn btn-primary">Login with Facebook</a>
+				<form method="POST" action="" role="form">
+				  <div class="form-group">
+				    <label for="email" class="hidden">Email</label>
+				    <input type="email" class="form-control" id="email" placeholder="Email" name="email">
+				  </div>
+				  <div class="form-group">
+				    <label for="password" class="hidden">Password</label>
+				    <input type="password" class="form-control" id="password" placeholder="Password" name="password">
+				  </div>
 
-<form method="POST" action="" role="form">
-  <div class="form-group">
-    <label for="email" class="hidden">Email</label>
-    <input type="email" class="form-control" id="email" placeholder="Email" name="email">
-  </div>
-  <div class="form-group">
-    <label for="password" class="hidden">Password</label>
-    <input type="password" class="form-control" id="password" placeholder="Password" name="password">
-  </div>
-
-  <button type="submit" class="btn btn-primary">Submit</button>
-</form>
+				  <button type="submit" class="btn submitButton">Submit</button>
+				</form>
+			</div>
+		</div>
+	</div>
+</div>

@@ -1,6 +1,11 @@
-<h1>Sounds great! </h1> 
-<h2>We'll let the <%= setting.brideFirst %> and <%= setting.groomFirst %> know</h2>
-<p><%= guest.firstName %></p>
-<p><%= guest.lastName %></p>
-<p>DISPLAY INPUTTED FORM DATA HERE</p>
-<button type="button" class="btn btn-default"><a href="/guest/info">button</a></button>
+<div class="container">
+	<div class="row">
+		<div class="col-sm-12 col-md-6 col-md-offset-3">
+			<div class="rsvpContainer"><h1>Sounds great! </h1> 
+				<h2>We'll let the <%= setting.brideFirst %> and <%= setting.groomFirst %> know</h2>
+				<p>Just to make sure we got that right, you are <%= guest.firstName %> <%= guest.lastName %>, and you rsvped <%= guest.rsvp %> to the wedding.</p>
+				<button type="button" class="btn rsvpFinalButton"><a href="/guest/info">View our portal</a></button>
+			</div>
+		</div>
+	</div>
+</div>

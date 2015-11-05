@@ -1,4 +1,12 @@
-body { padding-top: 70px; }
+body { 
+	padding-top: 70px; 
+	background-color: rgba(151,156,156,0.6);
+}
+
+a:hover {
+	text-decoration: none;
+
+}
 
 
 /*portal stylings - main page */
@@ -30,4 +38,68 @@ body { padding-top: 70px; }
 footer {
 	position: absolute;
 	bottom: 0;
+}
+
+/*RSVP FORMS*/
+
+.rsvpContainer {
+	background-color: rgba(52,54,66,0.3);
+	padding: 1em 2em 2em 2em;
+}
+
+.rsvpContainer h1 {
+	text-align: center;
+	padding: .5em;
+	color: #343642 !important;
+}
+
+.rsvpContainer h2 {
+	text-align: center;
+	color: #343642;
+}
+.confirmButton {
+	color: #348899;
+	background-color: rgba(242,235,199,0.6);
+	font-size: 1.5em;
+	font-weight: 600;
+	margin: 0 0 0 40%;
+}
+
+.rsvpFinalButton {
+	color: #348899 !important;
+	background-color: rgba(242,235,199,0.6) !important;
+	font-size: 1.5em;
+	font-weight: 600;
+	margin: 0 0 0 32%;
+}
+
+.rsvpContainer p {
+	padding-top: .25em;
+	text-align: center;
+}
+
+/*log in styles */
+.buttonCenter {
+	text-align: center;
+	margin: 1em;
+}
+
+.socialLogin{
+	color: #348899;
+	background-color: rgba(242,235,199,0.6);
+	padding: .5em;
+	font-size: 1.5em;
+	border-radius: 5px;
+	font-weight: 600;
+}
+
+.socialLogin:hover {
+	color: rgba(150,45,62,0.6);
+}
+
+.submitButton {
+	color: #348899;
+	background-color: rgba(242,235,199,0.6);
+	font-size: 1.5em;
+	font-weight: 600;
 }
