@@ -39,16 +39,6 @@ app.use(function(req,res,next){
 });
 
 
-
-
-
-//routes start here
-//render homepage 
-// app.get('/', function(req, res){ //sets root
-//  	res.render('index');
-//  });
-
-
 //controllers
 app.use("/", require('./controllers/site'));
 app.use("/portal", require('./controllers/admin'));

@@ -5,38 +5,45 @@ var db = require("./../models");
 var bodyParser = require("body-parser");
 router.use(bodyParser({urlencoded: false}));
 
-
+//WORKS
 router.get('/', function(req, res){ //DO NOT CHANGE THIS 
 	console.log("FOUND BASE ROUTE" + req.user.id);
 	db.user.findById(req.user.id)
-	.then(function(data){
+	.then(function(user){
 	 	db.setting.find({
 	 		where: {
 				id: req.user.settingId
-			},
-			include: [ db.setting ]
-		}).then(function(user){
-			res.render('portal/index', { user : user, setting : setting })
-		})
+			}
+		}).then(function(setting){
+			db.guest.find({
+				where: {
+					portalCode: setting.portalCode
+				}
+			}).then(function(guest){
+				res.render('portal/index', { user : user, setting : setting, guest : guest })
+			});
+		});
 	});
 });
 
-//render settings 
+//WORKS
 router.get('/settings', function(req, res){
 	// req.session.userId = req.user.id;
-	console.log("FOUND SETTINGS CONSOLE" + req.user.id)
-	db.setting.findAll().then(function(setting){
-		//if (req.user) {
+	if (req.user) {
+		console.log("FOUND SETTINGS CONSOLE" + req.user.id)
+		db.setting.findAll().then(function(setting){
 			res.render('portal/settings', { setting : setting });
-  		//} else {
-    		//req.flash('danger','You do not have permission to see this page');
-    		//res.redirect('/');
-  		//}
+		})
+  	} else {
+    	req.flash('danger','You do not have permission to see this page');
+    	res.redirect('/');
+  		}
   	});
-});
+
 
 var sessionUser = null; 
 //post settings successfully captures settings for a user and sets settingID 
+//WORKS
 router.post('/settings', function(req, res){
 	//req.session.userId = req.user.id
 	console.log(sessionUser + "SETTING SESSION USER")
@@ -68,56 +75,85 @@ router.post('/settings', function(req, res){
 		});
 	});
 //render tree
-router.get('/tree', function(req, res){
-	console.log(req.user.settingId);
-	db.setting.find({
-		where: {
-			id: req.user.settingId
-		},
-		include: [ db.guest ],
-		include: [ db.user ],
-	}).then(function(setting){
-			//if (req.user) {
-		res.render('portal/tree', { setting : setting, user : user, guest : guest});
-	  		//} else {
-	    	//	req.flash('danger','You do not have permission to see this page');
-	    	//	res.redirect('/');
-	  		//};
-	  	});
-	})
+router.get('/tree', function(req, res){ //DO NOT CHANGE THIS 
+	if (req.user) {
+		console.log("FOUND RSVP ROUTE" + JSON.stringify(req.user));
+		db.user.findById(req.user.id)
+		.then(function(user){
+		 	db.setting.find({
+		 		where: {
+					id: req.user.settingId
+				}
+			}).then(function(setting){
+				db.guest.find({
+					where: {
+						portalCode: setting.portalCode
+					}
+				}).then(function(guest){
+					res.render('portal/tree', { user : user, setting : setting, guest : guest })
+				})
+			})
+	});
+	} else {
+    	req.flash('danger','You do not have permission to see this page');
+    	res.redirect('/');
+  		}
+  	});
+
 
 
 
 //render rsvps
-router.get('/rsvplist', function(req, res){
-	console.log(req.user.id + "TEST")
-	db.user.findById(req.user.id).then(function(user){
-		db.setting.find({
-			where: {
-				id: req.user.settingId
-			},
-			include: [ db.guest ]
-		}).then(function(user){
-			//if (req.user) {
-				res.render('portal/rsvplist', { setting : setting, user : user, guest : guest});
-	  		//} else {
-	    	//	req.flash('danger','You do not have permission to see this page');
-	    	//	res.redirect('/');
-	  		//};
-	  	})
-	})
+router.get('/rsvplist', function(req, res){ //DO NOT CHANGE THIS 
+	if (req.user) {
+		console.log("FOUND RSVP ROUTE" + JSON.stringify(req.user));
+		db.user.findById(req.user.id)
+		.then(function(user){
+		 	db.setting.find({
+		 		where: {
+					id: req.user.settingId
+				}
+			}).then(function(setting){
+				db.guest.find({
+					where: {
+						portalCode: setting.portalCode
+					}
+				}).then(function(guest){
+					res.render('portal/rsvplist', { user : user, setting : setting, guest : guest })
+				})
+			})
+		});
+	} else {
+		req.flash('danger', 'You do not have permission to see this page');
+		res.redirect('/');
+	};
 });
 
-router.get('/site', function(req, res){
-	var id = req.params.id;
-	db.setting.findAll().then(function(data){
-		//if (req.user) {
-			res.render('portal/site');
-  		//} else {
-    	//	req.flash('danger','You do not have permission to see this page');
-    	//	res.redirect('/');
-  		//}
-  	});
+
+
+router.get('/site', function(req, res){ //DO NOT CHANGE THIS 
+	if (req.user) {
+		console.log("FOUND RSVP ROUTE" + JSON.stringify(req.user));
+		db.user.findById(req.user.id)
+		.then(function(user){
+		 	db.setting.find({
+		 		where: {
+					id: req.user.settingId
+				}
+			}).then(function(setting){
+				db.guest.find({
+					where: {
+						portalCode: setting.portalCode
+					}
+				}).then(function(guest){
+					res.render('portal/site', { user : user, setting : setting, guest : guest })
+				})
+			})
+		});
+	} else {
+		req.flash('danger', 'You do not have permission to see this page');
+		res.redirect('/');
+	};
 });
 
 

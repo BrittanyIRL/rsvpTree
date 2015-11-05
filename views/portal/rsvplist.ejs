@@ -23,7 +23,7 @@
 			<button type="button" class="btn btn-default">Date RSVP'd</button>
 			<button type="button" class="btn btn-default">Attending first</button>
 			<button type="button" class="btn btn-default">Declined first</button>
-			<table class="table table-hover">
+			<table class="table table-hover">	   
 				<thead>
 					<tr>
 						<th>#</th>
@@ -38,40 +38,19 @@
 					</tr>
 				</thead>
 				<tbody>
+				<% guest.forEach(function(guest){ %>
 					<tr>
-						<td>id</td>
-						<td>person</td>
-						<td>1</td>
-						<td>Drake</td>
-						<td>1 (age: #)</td>
-						<td>3</td>
-						<td>yes</td>
-						<td>note note note</td>
+						<td><%= guest.id %></td>
+						<td><%= guest.firstName %> </td>
+						<td><%= guest.lastName %></td>
+						<td><%= guest.plusOneFirstName%> <%=guest.plusOnelastName %></td>
+						<td><%= guest.childName %></td>
+						<td><%= guest.count %></td>
+						<td><%= guest.rsvp %></td>
+						<td><%= guest.diet %></td>
 						<td><button type="button" class="btn btn-default">Add To Tree</button></td>
 					</tr>
-					<tr>
-						<td>id</td>
-						<td>person</td>
-						<td>1</td>
-						<td>Drake</td>
-						<td>1 (age: #)</td>
-						<td>3</td>
-						<td>yes</td>
-						<td>note note note</td>
-						<td><button type="button" class="btn btn-default">Add To Tree</button></td>
-					</tr>
-					<tr>
-						<td>id</td>
-						<td>person</td>
-						<td>1</td>
-						<td>Drake</td>
-						<td>1 (age: #)</td>
-						<td>3</td>
-						<td>yes</td>
-						<td>note note note</td>
-						<td><button type="button" class="btn btn-default">Add To Tree</button></td>
-					</tr>
-
+				<% }) %>
 				</tbody>
 			</table>
 		</div>

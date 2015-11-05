@@ -44,31 +44,33 @@ router.post('/signup', function(req, res){
 });
 
 router.get('/login', function(req, res) {
-    res.render('/auth/login');
+    res.render('auth/login');
   });
 
 router.post('/login', function(req, res) {
+    console.log('accessing login post');
+    console.log(passport);
     passport.authenticate('local', function(err, user, info) {
-       console.log(user);
+      console.log('authenticated');
       if (user) {
         req.login(user, function(err) {
           console.log('user recognized');
           if (err) throw err;
           req.flash('success', 'You are now logged in.');
-          res.render('portal/index', { user : user });
+          res.redirect('/portal/');
         });
       } else {
         req.flash('danger', 'Error');
-        res.redirect('/auth/login');
+        res.redirect('auth/login');
       }
-  });
+  })(req, res);
 });
 
 router.get('/login/:provider', function(req, res) {
   passport.authenticate(
     req.params.provider,
     {scope: ['public_profile', 'email']}
-  )(req, res);
+  )
 });
 
 //THIS WORKS
@@ -81,13 +83,13 @@ router.get('/callback/:provider', function(req, res) {
       req.login(user, function(err) {
         if (err) throw err;
         req.flash('success', 'You are now logged in with ' + req.params.provider);
-        res.render('portal/index', { user : user });
+        res.render('portal/index');
       });
     } else {
       req.flash('danger', 'Error');
       res.redirect('/auth/login');
     }
-  })(req, res);
+  })(req,res);
 });
 
 router.get('/logout', function(req, res) {

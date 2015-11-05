@@ -7,6 +7,7 @@ module.exports = {
       usernameField: 'email'
     },
     function(email, password, done) {
+      console.log('asldkfjalsdkfj');
       db.user.find({where: {email: email}}).then(function(user) {
         if (user) {
           user.checkPassword(password, function(err, result) {
@@ -30,6 +31,7 @@ module.exports = {
       profileFields: ['email', 'displayName']
     },
     function(accessToken, refreshToken, profile, done) {
+      console.log('hitting facebookstrat');
       db.provider.find({
         where: {
           providerId: profile.id,

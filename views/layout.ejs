@@ -30,16 +30,17 @@
 			<div class="collapse navbar-collapse navbar-ex1-collapse">
 				<ul class="nav navbar-nav navbar-right">
 					<% if (!currentUser) { %>
-					<li><a href="/auth/signup">Sign Up</a></li>
-					<li><a href="/auth/login">Log In</a></li>
+						<li><a href="auth/signup">Sign Up</a></li>
+						<li><a href="auth/login">Log In</a></li>
 					<% } else { %> 
-					<p class="navbar-text">Signed in as <%= currentUser.firstName %></p>
-					<li><a href="/auth/logout">Logout</a></li>
+						<p class="navbar-text">Signed in as <%= currentUser.firstName %></p>
+						<li><a href="/auth/logout">Logout</a></li>
 					<% } %>
 				</ul>
 			</div><!-- /.navbar-collapse -->
 		</div>
 	</nav>
+<%- alerts %>
 <%- body %>
 	<!-- Javascript -->
 	<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
