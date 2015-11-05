@@ -27,7 +27,7 @@ router.post('/signup', function(req, res){
             if (err) throw err;
             req.flash('success', 'You are signed up and logged in.');
             console.log('signed up and logged in');
-            res.render('portal/index');
+            res.redirect('/portal/settings/');
           })
         // } else {
         //   req.flash('danger', 'A user with that e-mail address already exists.');
@@ -44,7 +44,7 @@ router.post('/signup', function(req, res){
 });
 
 router.get('/login', function(req, res) {
-    res.render('auth/login');
+    res.render('/auth/login');
   });
 
 router.post('/login', function(req, res) {
@@ -55,11 +55,11 @@ router.post('/login', function(req, res) {
           console.log('user recognized');
           if (err) throw err;
           req.flash('success', 'You are now logged in.');
-          res.render('portal/index');
+          res.render('portal/index', { user : user });
         });
       } else {
         req.flash('danger', 'Error');
-        res.redirect('auth/login');
+        res.redirect('/auth/login');
       }
   });
 });
@@ -81,7 +81,7 @@ router.get('/callback/:provider', function(req, res) {
       req.login(user, function(err) {
         if (err) throw err;
         req.flash('success', 'You are now logged in with ' + req.params.provider);
-        res.render('portal/index');
+        res.render('portal/index', { user : user });
       });
     } else {
       req.flash('danger', 'Error');

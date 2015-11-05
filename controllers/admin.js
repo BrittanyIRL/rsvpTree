@@ -6,31 +6,39 @@ var bodyParser = require("body-parser");
 router.use(bodyParser({urlencoded: false}));
 
 
-router.get('/', function(req, res){
-	console.log(req.user.id)
-	db.user.findById(req.user.id).then(function(data){
-		user.getSettings().then(function(setting){
-			res.render('portal/index', { user : user, setting : setting})
+router.get('/', function(req, res){ //DO NOT CHANGE THIS 
+	console.log("FOUND BASE ROUTE" + req.user.id);
+	db.user.findById(req.user.id)
+	.then(function(data){
+	 	db.setting.find({
+	 		where: {
+				id: req.user.settingId
+			},
+			include: [ db.setting ]
+		}).then(function(user){
+			res.render('portal/index', { user : user, setting : setting })
 		})
 	});
 });
 
 //render settings 
 router.get('/settings', function(req, res){
-	// var id = req.user.id;
+	// req.session.userId = req.user.id;
+	console.log("FOUND SETTINGS CONSOLE" + req.user.id)
 	db.setting.findAll().then(function(setting){
-		if (req.user) {
+		//if (req.user) {
 			res.render('portal/settings', { setting : setting });
-  		} else {
-    		req.flash('danger','You do not have permission to see this page');
-    		res.redirect('/');
-  		}
+  		//} else {
+    		//req.flash('danger','You do not have permission to see this page');
+    		//res.redirect('/');
+  		//}
   	});
 });
-var sessionUser = null; 
 
+var sessionUser = null; 
+//post settings successfully captures settings for a user and sets settingID 
 router.post('/settings', function(req, res){
-	req.session.userId = req.user.id
+	//req.session.userId = req.user.id
 	console.log(sessionUser + "SETTING SESSION USER")
 	var newEvent = req.body;
 	db.setting.findOrCreate({
@@ -51,10 +59,10 @@ router.post('/settings', function(req, res){
 			groomLast: newEvent.groomLast,
 			portalCode: newEvent.portalCode }
 		}).spread(function(setting, created){
-			db.user.findById(req.user.id).then(function(data){
-				data.settingId = setting.id
-				data.save().then(function(data){
-					res.render('portal/index')
+			db.user.findById(req.user.id).then(function(user){
+				user.settingId = setting.id
+				user.save().then(function(user){
+					res.render('portal/index', { setting : setting })
 				});
 			});
 		});
@@ -90,12 +98,12 @@ router.get('/rsvplist', function(req, res){
 			},
 			include: [ db.guest ]
 		}).then(function(user){
-			if (req.user) {
+			//if (req.user) {
 				res.render('portal/rsvplist', { setting : setting, user : user, guest : guest});
-	  		} else {
-	    		req.flash('danger','You do not have permission to see this page');
-	    		res.redirect('/');
-	  		};
+	  		//} else {
+	    	//	req.flash('danger','You do not have permission to see this page');
+	    	//	res.redirect('/');
+	  		//};
 	  	})
 	})
 });
@@ -103,12 +111,12 @@ router.get('/rsvplist', function(req, res){
 router.get('/site', function(req, res){
 	var id = req.params.id;
 	db.setting.findAll().then(function(data){
-		if (req.user) {
+		//if (req.user) {
 			res.render('portal/site');
-  		} else {
-    		req.flash('danger','You do not have permission to see this page');
-    		res.redirect('/');
-  		}
+  		//} else {
+    	//	req.flash('danger','You do not have permission to see this page');
+    	//	res.redirect('/');
+  		//}
   	});
 });
 
