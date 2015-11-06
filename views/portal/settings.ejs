@@ -18,13 +18,13 @@
           <div class="row">
             <div class="col-sm-12 col-md-6">
               <label for="nameBride">What is the Bride's Name?</label>
-              <input type="text" class="form-control" name="brideFirst" placeholder="Kim">
-              <input type="text" class="form-control" name="brideLast" placeholder="Possible">
+              <input type="text" class="form-control" name="brideFirst" placeholder="Padme">
+              <input type="text" class="form-control" name="brideLast" placeholder="Amidala">
             </div>
             <div class="col-sm-12 col-md-6">
               <label for="nameGroom">What is the Groom's Name?</label>
-              <input type="text" class="form-control" name="groomFirst" placeholder="Prince">
-               <input type="text" class="form-control" name="groomLast" placeholder="Charles">
+              <input type="text" class="form-control" name="groomFirst" placeholder="Anakin">
+               <input type="text" class="form-control" name="groomLast" placeholder="Skywalker">
               </div>
             </div>
         </div>
@@ -32,31 +32,28 @@
       <div class="col-sm-12 col-md-6">
         <div class="form-group">
           <label for="date">When's the wedding?</label>
-          <input type="text" class="form-control" name="weddingDate" id="date" placeholder="date">
+          <input type="text" class="form-control" name="weddingDate" id="date" placeholder="101516">
           <label for="time">What time?</label>
           <input type="text" class="form-control" name="time" id="time" placeholder="6:00">
           <label for="location">Where's it at?</label>
-          <input type="text" class="form-control" id="location" name="location" placeholder="location">
+          <input type="text" class="form-control" id="location" name="location" placeholder="Palace Gardens, Naboo">
         </div>
       </div>
     </div>
     <div class="row">
       <div class="col-sm-12 col-md-6">
         <div class="form-group">
-          <div class="checkbox">
-            <label>
-              <input type="checkbox"> Are you registered anywhere?
-            </label>
-          </div>
-          <label for="date">If so, copy in a valid link to your registry below, or just list stores if it's not online</label>
-          <input type="text" class="form-control" id="registry1" name="registry" placeholder="Amazon">
+          <label for="registry">Include a link to your registry</label>
+          <input type="text" class="form-control" id="registry1" name="registry" placeholder="West Elm">
           <!-- <input type="text" class="form-control" id="registry2" name="registry" placeholder="Amazon">
           <input type="text" class="form-control" id="registry3" name="registry" placeholder="Amazon"> -->
+          <label for="pictureUpload">Include a photo of you two for use on your profile, this will be visible for all guests</label>
+        <input type="text" class="form-control" id="pictureUpload" name="picture">
         </div>
       </div>
       <div class="col-sm-12 col-md-6">
-        <label for="portalCode">Pick a unique code for your guests to use to id your profile</label>
-        <input type="integer" class="form-control" id="portalCode" name="portalCode" placeholder="2222">
+        <label for="portalCode">Pick a unique 8 character code for your guests to identify your wedding by - important!</label>
+        <input type="integer" class="form-control" id="portalCode" name="portalCode" placeholder="skywalk1">
         <label for="header">How do you want to greet your guests?</label>
         <input type="text" class="form-control" name="greeting" id="header" placeholder="We're getting married!">
         <label>Story Time</label>
@@ -65,8 +62,11 @@
     </div>
     <div class="row">
       <div class="col-sm-12 col-md-6">
-        <label for="pictureUpload">Include a photo of you two</label>
-        <input type="file" id="pictureUpload" name="picture">
+<!-- <!--CLOUDINARY FORM -->
+        <!-- <form enctype="multipart/form-data" action="/" method="post">
+          <input type="file" name="myFile">
+        </form>  -->
+        
       </div>
       <div class="col-sm-12 col-md-6">
         <label for="contactInfo">What's a good email for guests if they have questions?</label>

@@ -8,6 +8,8 @@ var strategies = require('./config/strategies');
 var session = require('express-session');
 var flash = require('connect-flash');
 var FacebookStrategy = require('passport-facebook').Strategy;
+// var upload = multer({ dest: './uploads/' });
+// var cloudinary = require('cloudinary');
 var app = express(); //call express as a function
 //middleware here
 app.set("view engine", "ejs");
@@ -38,6 +40,11 @@ app.use(function(req,res,next){
   next();
 });
 
+// cloudinary.config({ 
+//   cloud_name: 'rsvptree', 
+//   api_key: '985637378986115', 
+//   api_secret: '5au6WXa5kj_xvIaO5TDfB9uwMGw' 
+// });
 
 //controllers
 app.use("/", require('./controllers/site'));

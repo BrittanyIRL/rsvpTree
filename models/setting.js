@@ -1,21 +1,83 @@
 'use strict';
 module.exports = function(sequelize, DataTypes) {
   var setting = sequelize.define('setting', {
-    weddingDate: DataTypes.INTEGER,
-    location: DataTypes.STRING,
-    time: DataTypes.STRING,
+    weddingDate: {
+      type: DataTypes.STRING,
+      validate: {
+        notEmpty: true,
+        isDate: true
+      }
+    },
+    location: {
+      type: DataTypes.STRING,
+      validate: {
+        notEmpty: true
+      }
+    },
+    time: {
+      type: DataTypes.STRING,
+      validate: {
+        notEmpty: true
+      }
+    },
     registry: DataTypes.TEXT,
-    about: DataTypes.TEXT,
-    picture: DataTypes.TEXT,
+    about: {
+      type: DataTypes.STRING,
+      validate: {
+        notEmpty: true
+      }
+    },
+    picture: {
+      type: DataTypes.TEXT,
+      validate: {
+        isUrl: true
+      }
+    },
     phone: DataTypes.INTEGER,
-    email: DataTypes.STRING,
+    email: {
+      type: DataTypes.STRING,
+      validate: {
+        notEmpty: true
+      }
+    },
     siteName: DataTypes.STRING,
-    greeting: DataTypes.STRING,
-    brideFirst: DataTypes.STRING,
-    brideLast: DataTypes.STRING,
-    groomFirst: DataTypes.STRING,
-    groomLast: DataTypes.STRING,
-    portalCode: DataTypes.INTEGER
+    greeting: {
+      type: DataTypes.STRING,
+      validate: {
+        notEmpty: true
+      }
+    },
+    brideFirst: {
+      type: DataTypes.STRING,
+      validate: {
+        notEmpty: true
+      }
+    },
+    brideLast: {
+      type: DataTypes.STRING,
+      validate: {
+        notEmpty: true
+      }
+    },
+    groomFirst: {
+      type: DataTypes.STRING,
+      validate: {
+        notEmpty: true
+      }
+    },
+    groomLast: {
+      type: DataTypes.STRING,
+      validate: {
+        notEmpty: true
+      }
+    },
+    portalCode: {
+      type: DataTypes.STRING,
+      validate: {
+        notEmpty: true,
+        len: [7, 8]
+      }
+    }
   }, {
     classMethods: {
       associate: function(models) {

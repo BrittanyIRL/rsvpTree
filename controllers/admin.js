@@ -36,9 +36,18 @@ router.get('/settings', function(req, res){
 		})
   	} else {
     	req.flash('danger','You do not have permission to see this page');
-    	res.redirect('/');
+    	res.render('./', { alerts : req.flash()} );
   		}
   	});
+
+
+
+
+// // THIS IS FOR PHOTO UPLOAD
+// app.post('/settings', upload.single('myFile'), function(req, res) {
+//   res.send(req.file);
+// });
+
 
 
 var sessionUser = null; 
@@ -96,7 +105,7 @@ router.get('/tree', function(req, res){ //DO NOT CHANGE THIS
 	});
 	} else {
     	req.flash('danger','You do not have permission to see this page');
-    	res.redirect('/');
+    	res.render('./', { alerts : req.flash()} );
   		}
   	});
 
@@ -144,9 +153,9 @@ router.get('/rsvplist', function(req, res){ //DO NOT CHANGE THIS
 			})
 		});
 	} else {
-		req.flash('danger', 'You do not have permission to see this page');
-		res.redirect('/');
-	};
+    	req.flash('danger','You do not have permission to see this page');
+    	res.render('./', { alerts : req.flash()} );
+  		};
 });
 
 
@@ -171,9 +180,9 @@ router.get('/site', function(req, res){ //DO NOT CHANGE THIS
 			})
 		});
 	} else {
-		req.flash('danger', 'You do not have permission to see this page');
-		res.redirect('/');
-	};
+    	req.flash('danger','You do not have permission to see this page');
+    	res.render('./', { alerts : req.flash()} );
+  		};
 });
 
 

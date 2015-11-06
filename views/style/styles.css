@@ -11,7 +11,9 @@ a:hover {
 ul {
 	list-style-type: none;
 }
-
+.nav.navbar {
+	background-color: #343642 !important;
+}
 /*portal stylings - main page */
 .portalNav {
 	width: 100%;
@@ -125,6 +127,12 @@ footer {
 	background: transparent;
 }
 
+.portalPhoto {
+	max-width: 400px;
+	max-height: 400px;
+	border-radius: 10px;
+}
+
 /*end site */
 
 .finePrint {
@@ -132,4 +140,57 @@ footer {
 	width:75%;
 	margin-top: 1.6em;
 	padding: .5em 1em 2em 1em;
+}
+
+/*landing page */
+
+.rsvpTop {
+	width: 100%;
+	text-align: center;
+	background-color: rgba(52,136,153,0.5);
+	border-bottom: 4px solid #343642;
+	padding: 3em;
+}
+
+.landingTop {
+	text-align: justify;
+	padding-left: 5em;
+	margin-top: 5em;
+}
+
+
+
+.landingTop h2 {
+
+	text-align: left;
+}
+
+
+.landingBody {
+	text-align: justify;
+}
+
+.landingImage {
+	background-image: url('')
+}
+
+.footer {
+	padding-bottom: 5em;
+	list-style-type: none;
+}
+
+.footerText {
+	background-color: rgba(52,136,153,0.6);
+	padding: 2em 4em 3em 6em;
+}
+
+.footerText a{
+	color: #962D3E;
+}
+
+.bio {
+	width: 250px;
+	min-height: 250px;
+	border-radius: 50%;
+	margin-left: 5em;
 }
