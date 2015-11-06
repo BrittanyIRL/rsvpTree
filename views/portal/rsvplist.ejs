@@ -50,7 +50,7 @@
 						<td><%= guest.rsvp %></td>
 						<td><%= guest.diet %></td>
 						<td><button type="button" class="btn btn-default">Add To Tree</button></td>
-						<td><button class="delete-btn"><%= guest.id%> <input type="hidden" value="<%= guest.id %>">Remove From List</button></td>
+						<td><a href="/delete/<%= guest.id %>" class="btn btn-default deleteButton">Remove From List</a></td>
 					</tr>
 				<% }); %>
 				</tbody>

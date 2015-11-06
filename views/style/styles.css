@@ -3,6 +3,13 @@ body {
 	background-color: rgba(151,156,156,0.6);
 }
 
+.navImg {
+	background-image: url('/images/transparenttree.png');
+	width:40px;
+	height: 40px;
+	background-size: contain;
+	margin-top: -10px;
+}
 a:hover {
 	text-decoration: none;
 
@@ -145,7 +152,6 @@ footer {
 /*landing page */
 
 .rsvpTop {
-	width: 100%;
 	text-align: center;
 	background-color: rgba(52,136,153,0.5);
 	border-bottom: 4px solid #343642;
@@ -153,26 +159,34 @@ footer {
 }
 
 .landingTop {
+	color: #F2EBC7;
 	text-align: justify;
-	padding-left: 5em;
-	margin-top: 5em;
+	margin: 3em 2em;
+	width: 45%;
+	height: 250px;
+	background-color: rgba(151,156,156,0.8);
+}
+
+.landingTop p{
+	padding: 2em;
+	text-align: justify;
 }
 
 
 
 .landingTop h2 {
-
-	text-align: left;
+	text-align: center;
 }
 
 
-.landingBody {
-	text-align: justify;
-}
 
-.landingImage {
-	background-image: url('')
-}
+
+/*.landingImage {
+	background-image: url('/images/trees.jpg');
+	background-size: contain;
+	width: 100%;
+	height: 350px;
+}*/
 
 .footer {
 	padding-bottom: 5em;
@@ -182,6 +196,15 @@ footer {
 .footerText {
 	background-color: rgba(52,136,153,0.6);
 	padding: 2em 4em 3em 6em;
+	margin: 3em 2em;
+	width: 45%;
+}
+
+.footerImage {
+	text-align: center;
+	width: 45%;
+	padding: 2em 4em 3em 6em;
+	margin: 3em 2em;
 }
 
 .footerText a{
@@ -219,4 +242,15 @@ footer {
 	font-size: 2em;
 	border-radius: 5px;
 	font-weight: 600;
+}
+
+/*PARALLAX */
+
+.parallax-window {
+    min-height: 200px;
+    background: transparent;
+}
+
+i {
+	padding-right: 1em;
 }
