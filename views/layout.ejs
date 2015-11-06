@@ -35,13 +35,14 @@
 						<li><a href="auth/login">Log In</a></li>
 					<% } else { %> 
 						<p class="navbar-text">Signed in as <%= currentUser.firstName %></p>
+						<li><a href="/portal/">Home</a></li>
 						<li><a href="/auth/logout">Logout</a></li>
 					<% } %>
 				</ul>
 			</div><!-- /.navbar-collapse -->
 		</div>
 	</nav>
-<%- alerts %>
+<% include alerts %>
 <%- body %>
 	<!-- Javascript -->
 	<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>

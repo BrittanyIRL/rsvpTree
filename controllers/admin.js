@@ -186,6 +186,18 @@ router.get('/site', function(req, res){ //DO NOT CHANGE THIS
 });
 
 
+router.delete('/rsvplist/:id', function(req, res) {
+  console.log(guest.id);
+  db.guest.destroy({
+    where: {
+      id: guest.id
+    }
+  }).then(function() {
+    res.send({'msg': 'success'});
+  }).catch(function(e) {
+    res.send({'msg': 'error', 'error': e});
+  });
+});
 
 
 module.exports = router;  // tell node what to export

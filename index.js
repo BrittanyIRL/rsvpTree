@@ -52,6 +52,9 @@ app.use("/portal", require('./controllers/admin'));
 app.use("/guest", require('./controllers/guest'));
 app.use("/auth", require('./controllers/auth'));
 
+app.get('/:a', function(req, res){
+	res.render('error');
+});
 
 app.listen(process.env.PORT || 3000)
 

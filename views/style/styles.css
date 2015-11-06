@@ -194,3 +194,29 @@ footer {
 	border-radius: 50%;
 	margin-left: 5em;
 }
+
+.error {
+	width: 80%;
+	min-height: 600px;
+	background-image: url('/images/princess.gif');
+	background-size: cover;
+	margin: -70px 0 0 10%;
+	padding-top: 70px;
+	text-align: center;
+	color: #F2EBC7;
+}
+
+.error button {
+	margin-top: 5em;
+	width: 100px;
+	height:50px;
+}
+
+.rsvpMainButton {
+	color: #962D3E;
+	background-color: #343642;
+	padding: .6em;
+	font-size: 2em;
+	border-radius: 5px;
+	font-weight: 600;
+}
