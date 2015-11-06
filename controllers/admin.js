@@ -40,21 +40,10 @@ router.get('/settings', function(req, res){
   		}
   	});
 
-
-
-
-// // THIS IS FOR PHOTO UPLOAD
-// app.post('/settings', upload.single('myFile'), function(req, res) {
-//   res.send(req.file);
-// });
-
-
-
 var sessionUser = null; 
 //post settings successfully captures settings for a user and sets settingID 
 //WORKS
 router.post('/settings', function(req, res){
-	//req.session.userId = req.user.id
 	console.log(sessionUser + "SETTING SESSION USER")
 	var newEvent = req.body;
 	db.setting.findOrCreate({
@@ -109,7 +98,61 @@ router.get('/tree', function(req, res){ //DO NOT CHANGE THIS
   		}
   	});
 
+router.get('/addGuest', function(req, res){ //DO NOT CHANGE THIS 
+	if (req.user) {
+		console.log("FOUND RSVP ROUTE" + JSON.stringify(req.user));
+		db.user.findById(req.user.id)
+		.then(function(user){
+		 	db.setting.find({
+		 		where: {
+					id: req.user.settingId
+				}
+			}).then(function(setting){
+				db.guest.create({
+					where: {
+						portalCode: setting.portalCode
+					}
+				}).then(function(guest){
+					res.render('portal/addGuest', { user : user, setting : setting, guest : guest })
+				});
+			});
+	});
+	} else {
+    	req.flash('danger','You do not have permission to see this page');
+    	res.render('./', { alerts : req.flash()} );
+  		}
+  	});
 
+//this is not quite working 
+router.post('/addGuest', function(req, res){
+	var newGuest = req.body;
+	db.user.findById(req.user.id).then(function(user){
+		db.setting.find({
+			where: {
+				id: req.user.settingId
+			}
+		}).then(function(setting){
+			db.guest.create({
+				firstName: (req.body.firstName ? req.body.firstName : null),
+				lastName: (req.body.lastName ? req.body.lastName : null),
+				rsvp: (req.body.rsvp ? req.body.rsvp : false),
+				portalCode: req.user.settingId,
+				email: (req.body.email ? req.body.email : "none"),
+				diet: (req.body.diet ? req.body.diet : "no"),
+				party: (req.body.party ? req.body.party : null ),
+				childAge: (req.body.childAge ? req.body.childAge : null),
+				childName: (req.body.childName ? req.body.childName : "none"),
+				count: (req.body.count ? req.body.count : 0 ),
+				plusOneLastName: (req.body.plusOneLastName ? req.body.plusOneLastName : null),
+				plusOneFirstName: (req.body.plusOneFirstName ? req.body.plusOneFirstName : null)
+			}).spread(function(guest, created){
+				guest.save().then(function(guests){
+					res.render('portal/rsvplist', { user : user, setting : setting, guests : guests })
+				});
+			});
+		});
+	});
+});
 
 
 //render rsvps
