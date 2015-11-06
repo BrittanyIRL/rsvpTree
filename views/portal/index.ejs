@@ -12,24 +12,31 @@
 	  <h1>Welcome back, <small><%= setting.brideFirst %> &amp; <%= setting.groomFirst %></small></h1>
 	</div>
 	<div class="row">
-		<div class="col-md-6"> <!--hide on small? -->
-			<a href="/portal/tree">tree</a>
-
+		<div class="col-md-6 portalTreeContainer"> <!--hide on small? -->
+			<h2>Create and update your family trees <small>according to RSVPs - help identify where people connect to each other.</small> <a href="/portal/tree">View</a> </h2>
+			
+			<img src="../images/transparenttree.png" class="treePortal">
 		</div>
-		<div class="col-md-6">
+		<div class="col-md-6 rsvpPortal">
 			<h2>Recent RSVPs</h2>
 			<a href="/portal/rsvplist">view all</a>
 			<ul class="list-group">
-		<!--  -->
+			<% guests.forEach(function(guest){ %>
+			  <li class="list-group-item">
+			    <span class="badge"><%= guest.count %>   </span>
+			    <%= guest.firstName %> <%= guest.lastName %>
 			  </li>
+			  <% }) %>
 			</ul>
-		
 		</div>
 	</div>
 
-	<footer>
-		<h2>Something here, more links, disclaimer...</h2>
-	</footer>
+	<!-- <div class="row">
+		<div class="col-md-12">
+			<h2>Something here, more links, disclaimer...</h2>
+		</div>
+	</div> -->
+	
 
 
 

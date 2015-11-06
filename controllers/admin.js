@@ -15,12 +15,12 @@ router.get('/', function(req, res){ //DO NOT CHANGE THIS
 				id: req.user.settingId
 			}
 		}).then(function(setting){
-			db.guest.find({
+			db.guest.findAll({
 				where: {
 					portalCode: setting.portalCode
 				}
-			}).then(function(guest){
-				res.render('portal/index', { user : user, setting : setting, guest : guest })
+			}).then(function(guests){
+				res.render('portal/index', { user : user, setting : setting, guests : guests })
 			});
 		});
 	});
