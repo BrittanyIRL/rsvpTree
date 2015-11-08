@@ -84,6 +84,16 @@ ul {
 	background: transparent;
 }
 
+.deleteIcon {
+	padding-left: 1em;
+	color: #962D3E;
+}
+
+.treeIcon {
+	padding-left: 1em;
+	color: #348899;
+}
+
 .portalPhoto {
 	max-width: 400px;
 	max-height: 400px;
@@ -149,8 +159,9 @@ ul {
 	color: rgba(150,45,62,0.6);
 }
 
+/* rsvp page add guest button */
 .submitButton {
-	color: #348899;
+	color: #343642;
 	background-color: rgba(242,235,199,0.6);
 	font-size: 1.5em;
 	font-weight: 600;

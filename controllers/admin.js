@@ -5,9 +5,8 @@ var db = require("./../models");
 var bodyParser = require("body-parser");
 router.use(bodyParser({urlencoded: false}));
 
-//WORKS
-router.get('/', function(req, res){ //DO NOT CHANGE THIS 
-	console.log("FOUND BASE ROUTE" + req.user.id);
+//render home page post log in
+router.get('/', function(req, res){ 
 	db.user.findById(req.user.id)
 	.then(function(user){
 	 	db.setting.find({
@@ -26,11 +25,9 @@ router.get('/', function(req, res){ //DO NOT CHANGE THIS
 	});
 });
 
-//WORKS
+//render setting page by portalcode and user id
 router.get('/settings', function(req, res){
-	// req.session.userId = req.user.id;
 	if (req.user) {
-		console.log("FOUND SETTINGS CONSOLE" + req.user.id)
 		db.setting.findAll().then(function(setting){
 			res.render('portal/settings', { setting : setting });
 		})
@@ -40,11 +37,8 @@ router.get('/settings', function(req, res){
   		}
   	});
 
-var sessionUser = null; 
 //post settings successfully captures settings for a user and sets settingID 
-//WORKS
 router.post('/settings', function(req, res){
-	console.log(sessionUser + "SETTING SESSION USER")
 	var newEvent = req.body;
 	db.setting.findOrCreate({
 		where: {
@@ -72,10 +66,10 @@ router.post('/settings', function(req, res){
 			});
 		});
 	});
-//render tree
+
+//render tree - this is loading but the jquery for the page has not been built yet, this route is just to jog my memory for when i implement this 
 router.get('/tree', function(req, res){ //DO NOT CHANGE THIS 
 	if (req.user) {
-		console.log("FOUND RSVP ROUTE" + JSON.stringify(req.user));
 		db.user.findById(req.user.id)
 		.then(function(user){
 		 	db.setting.find({
@@ -98,66 +92,65 @@ router.get('/tree', function(req, res){ //DO NOT CHANGE THIS
   		}
   	});
 
-router.get('/addGuest', function(req, res){ //DO NOT CHANGE THIS 
+//get to the add guest on admin level page 
+router.get('/rsvplist/addGuest/:id', function(req, res){ //DO NOT CHANGE THIS 
 	if (req.user) {
-		console.log("FOUND RSVP ROUTE" + JSON.stringify(req.user));
+		id = req.params.portalCode;
 		db.user.findById(req.user.id)
 		.then(function(user){
-		 	db.setting.find({
-		 		where: {
-					id: req.user.settingId
-				}
-			}).then(function(setting){
-				db.guest.create({
-					where: {
-						portalCode: setting.portalCode
-					}
-				}).then(function(guest){
-					res.render('portal/addGuest', { user : user, setting : setting, guest : guest })
-				});
+			db.setting.find({
+			where: {
+				portalCode: id
+			},
+			include: [ db.guest ]
+		}).then(function(setting){
+			res.render('portal/addGuest', { setting : setting, user : user }) //removed user
 			});
-	});
-	} else {
+		});
+		} else {
     	req.flash('danger','You do not have permission to see this page');
     	res.render('./', { alerts : req.flash()} );
   		}
   	});
 
-//this is not quite working 
-router.post('/addGuest', function(req, res){
-	var newGuest = req.body;
-	db.user.findById(req.user.id).then(function(user){
-		db.setting.find({
+
+//add guests on admin level 
+router.post('/rsvplist/addGuest/:id', function(req, res){
+	console.log("setting id still intact: " + req.params.id);
+	id = req.params.id;
+	db.user.findById(req.user.id)
+		.then(function(user){
+			db.setting.find({
 			where: {
-				id: req.user.settingId
-			}
+				portalCode: req.params.id
+			},
+			include: [ db.user ]
 		}).then(function(setting){
-			db.guest.create({
-				firstName: (req.body.firstName ? req.body.firstName : null),
-				lastName: (req.body.lastName ? req.body.lastName : null),
-				rsvp: (req.body.rsvp ? req.body.rsvp : false),
-				portalCode: req.user.settingId,
-				email: (req.body.email ? req.body.email : "none"),
-				diet: (req.body.diet ? req.body.diet : "no"),
-				party: (req.body.party ? req.body.party : null ),
-				childAge: (req.body.childAge ? req.body.childAge : null),
-				childName: (req.body.childName ? req.body.childName : "none"),
-				count: (req.body.count ? req.body.count : 0 ),
-				plusOneLastName: (req.body.plusOneLastName ? req.body.plusOneLastName : null),
-				plusOneFirstName: (req.body.plusOneFirstName ? req.body.plusOneFirstName : null)
-			}).spread(function(guest, created){
-				guest.save().then(function(guests){
-					res.render('portal/rsvplist', { user : user, setting : setting, guests : guests })
+				db.guest.create({
+					firstName: (req.body.firstName ? req.body.firstName : null),
+					lastName: (req.body.lastName ? req.body.lastName : null),
+					rsvp: (req.body.rsvp ? req.body.rsvp : false),
+					portalCode: req.params.id,
+					email: (req.body.email ? req.body.email : "none"),
+					diet: (req.body.diet ? req.body.diet : "no"),
+					party: (req.body.party ? req.body.party : null ),
+					childAge: (req.body.childAge ? req.body.childAge : null),
+					childName: (req.body.childName ? req.body.childName : "none"),
+					count: (req.body.count ? req.body.count : 0 ),
+					plusOneLastName: (req.body.plusOneLastName ? req.body.plusOneLastName : null),
+					plusOneFirstName: (req.body.plusOneFirstName ? req.body.plusOneFirstName : null)
+				}).then(function(guests){
+					res.redirect('/portal/rsvplist/')
 				});
 			});
 		});
-	});
 });
 
 
-//render rsvps
-router.get('/rsvplist', function(req, res){ //DO NOT CHANGE THIS 
+//render master rsvp list by portalCode and functions for numbers on side screen 
+router.get('/rsvplist/', function(req, res){ //DO NOT CHANGE THIS 
 	if (req.user) {
+		id = req.params.id;
 		console.log("FOUND RSVP ROUTE" + JSON.stringify(req.user));
 		db.user.findById(req.user.id)
 		.then(function(user){
@@ -191,7 +184,14 @@ router.get('/rsvplist', function(req, res){ //DO NOT CHANGE THIS
 						}
 					})
 					console.log(declineCount);
-					res.render('portal/rsvplist', { user : user, setting : setting, guests : guests, rsvpCount : rsvpCount, childCount : childCount, declineCount : declineCount })
+					res.render('portal/rsvplist', 
+					{ 	user : user, 
+						setting : setting, 
+						guests : guests, 
+						rsvpCount : rsvpCount, 
+						childCount : childCount, 
+						declineCount : declineCount 
+					})
 				})
 			})
 		});
@@ -202,7 +202,7 @@ router.get('/rsvplist', function(req, res){ //DO NOT CHANGE THIS
 });
 
 
-
+//render the portal site, this is mainly a live preview of what will be shown to guests post rsvp
 router.get('/site', function(req, res){ //DO NOT CHANGE THIS 
 	if (req.user) {
 		console.log("FOUND RSVP ROUTE" + JSON.stringify(req.user));
@@ -228,7 +228,21 @@ router.get('/site', function(req, res){ //DO NOT CHANGE THIS
   		};
 });
 
+//delete guests from event on admin level 
+router.get('/rsvplist/delete/:id', function(req, res){
+	var id = req.params.id;
+	db.guest.destroy({
+  		where: { 
+  			id : id 
+  		}
+  	}).then(function(){
+  		res.redirect('/portal/rsvpList');
+  	}).catch(function(e){
+  		res.send({
+  			'msg': 'error',
+  			'error':e
+  		});
+ 	});
+ });
 
-
-
-module.exports = router;  // tell node what to export
+module.exports = router; 

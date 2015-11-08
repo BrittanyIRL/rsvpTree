@@ -34,8 +34,8 @@ Eventually, I would like to add sort and filter functionality to the rsvplist pa
 	<li>create how to</li>
 	<li>tool tips on log in to explore portal</li>
 	<li>tree </li>
-	<li>delete button</li>
 	<li>add guest button within portal</li>
 	<li>show existing settings if they have been previously filled out</li>
 	<li>tell user what's wrong if they put something in the form wrong</li>
+	<li>add github link to footer</li>
 </ul>

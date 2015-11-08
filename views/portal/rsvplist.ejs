@@ -33,7 +33,7 @@
 						<th>Bringing Kids</th>
 						<th>Count</th>
 						<th>RSVP</th>
-						<th>notes</th>
+						<th>Diet</th>
 						<th>Tree</th>
 						<th>Delete</th>
 					</tr>
@@ -49,8 +49,8 @@
 						<td><%= guest.count %></td>
 						<td><%= guest.rsvp %></td>
 						<td><%= guest.diet %></td>
-						<td><button type="button" class="btn btn-default">Add To Tree</button></td>
-						<td><a href="/delete/<%= guest.id %>" class="btn btn-default deleteButton">Remove From List</a></td>
+						<td><a href="/portal/rsvplist/tree/<%= guest.id %>"><i class="fa fa-tree treeIcon"></i></a></td>
+						<td><a href="/portal/rsvplist/delete/<%= guest.id %>"><i class="fa fa-times deleteIcon"></i></a></td>
 					</tr>
 				<% }); %>
 				</tbody>
@@ -73,7 +73,7 @@
 			  <li class="list-group-item">Total Declined:
 			  <%= declineCount %> </li>
 			</ul>
-			<button type="button" class="btn submitButton">Add A Guest</button>
+			<button type="button" class="btn submitButton"><a href="/portal/rsvplist/addGuest/<%= setting.portalCode %>">Add A Guest</a></button>
 		</div>
 	</div>
 

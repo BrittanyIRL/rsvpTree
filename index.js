@@ -53,24 +53,17 @@ app.use("/guest", require('./controllers/guest'));
 app.use("/auth", require('./controllers/auth'));
 
 
-app.delete('/delete/:id', function(req, res) {
-  console.log(req.params.id);
-  var id = req.params.id;
-  db.guest.find({
-  	where: { id : id 
-  	}
-  }).then(function(guest){
-  	db.guest.removeGuest(req.params.id).then(function(){
-  		res.send('Ajax');
-  	});
-  });
+app.get('/error', function(req, res){
+  res.render('error');
+})
+
+app.use(function(req, res, next){
+  res.status(404);
+  res.redirect('/error');
+  next();
 });
 
 
-
-app.get('/:a', function(req, res){
-	res.render('error');
-});
 
 app.listen(process.env.PORT || 3000)
 
