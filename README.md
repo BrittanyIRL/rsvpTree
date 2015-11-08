@@ -19,12 +19,15 @@ The purpose of it is to host rsvp tracking for wedding planning specifically. It
 <h3>Approach:</h3>
 To do this, the main functionality comes from the database which stores various information. There are models for users, log in, guests, trees, event settings, and various tables connecting them. Pages are rendered with specific account information all based off of the attribute of portalCode - an 8 character text that tracks everything by connecting to necessary tables. This renders unique portals and tracks RSVPs. It relies on RESTful routes within its base CRUD nature. 
 
-
+<h3>Known Bugs </h3>
+<ul>
+<li>The form for 'settings' within the user portal will hang if anything is entered incorrectly. I need to go back and add alerts
+</li>
+<li>facebook authorization has not been given yet, so only local oauth works</li>
+</ul>
 
 <h3>To be continued... </h3>
 There's quite a few things left to add currently - the biggest piece being the tree functionality. I plan on using jsplumb (https://jsplumbtoolkit.com/community/demo/flowchart/index.html) to render the tree diagrams and populate with drop down based on RSVPs. 
-
-the route index/portal/addGuest is unfinished, there is an issue connecting the tables properly, the same is true of the delete button on the RSVP page. 
 
 Eventually, I would like to add sort and filter functionality to the rsvplist page within the portal and use cloudinary to upload images for sites rather than just urls.
 
