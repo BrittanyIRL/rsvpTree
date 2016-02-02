@@ -95,7 +95,7 @@ router.get('/callback/:provider', function(req, res) {
 router.get('/logout', function(req, res) {
   req.logout();
   req.flash('info', 'You have been logged out.');
-  res.redirect('http://localhost:3000');
+  res.redirect('/');
 });
 
 module.exports = router;
