@@ -208,6 +208,11 @@ ul {
 	margin: 1em auto;
 }
 
+.flexItem img {
+	width: 100%;
+	height: auto;
+}
+
 .flexFooter:first-of-type {
 	width: 60%;
 	margin: auto;

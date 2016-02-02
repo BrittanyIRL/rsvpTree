@@ -23,7 +23,7 @@ To do this, the main functionality comes from the database which stores various 
 <ul>
 <li>The form for 'settings' within the user portal will hang if anything is entered incorrectly. I need to go back and add alerts
 </li>
-<li>facebook authorization has not been given yet, so only local oauth works</li>
+<li>If there are no guests yet the portal won't load</li>
 </ul>
 
 <h3>To be continued... </h3>
@@ -34,9 +34,8 @@ Eventually, I would like to add sort and filter functionality to the rsvplist pa
 
 <h4>things left to do:</h4>
 <ul>
-	<li>create how to</li>
 	<li>tool tips on log in to explore portal</li>
-	<li>tree </li>
+	<li>tree</li>
 	<li>show existing settings if they have been previously filled out</li>
-	<li>tell user what's wrong if they put something in the form wrong</li>
+	<li>flash messages for forms</li>
 </ul>
