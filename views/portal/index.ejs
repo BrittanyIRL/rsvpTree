@@ -21,12 +21,12 @@
 			<h2>Recent RSVPs</h2>
 			<a href="/portal/rsvplist">view all</a>
 			<ul class="list-group">
-			<% guests.forEach(function(guest){ %>
-			  <li class="list-group-item">
-			    <span class="badge"><%= guest.count %>   </span>
-			    <%= guest.firstName %> <%= guest.lastName %>
-			  </li>
-			  <% }) %>
+				<% guests.forEach(function(guest){ %>
+			  		<li class="list-group-item">
+			    		<span class="badge"><%= guest.count %>   </span>
+			    		<%= guest.firstName %> <%= guest.lastName %>
+			  		</li>
+			  	<% }) %>
 			</ul>
 		</div>
 	</div>
