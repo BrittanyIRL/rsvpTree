@@ -140,6 +140,11 @@ ul {
 }
 
 
+.betaMode {
+	font-size: .7em;
+	text-align: center;
+}
+
 /*log in styles */
 .buttonCenter {
 	text-align: center;
